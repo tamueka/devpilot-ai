@@ -1,0 +1,171 @@
+<div class="ui-shell">
+  <a href="#main-content" class="
+      fixed left-4 top-4 z-50
+      -translate-y-24
+      rounded-lg
+      bg-devpilot-plum
+      px-4 py-2
+      font-semibold
+      text-devpilot-sand
+      transition
+      focus:translate-y-0
+    ">
+    Saltar al contenido
+  </a>
+
+  <header class="ui-shell-header">
+    <div class="ui-shell-header-inner">
+      <!-- BRAND -->
+      <a routerLink="/projects" class="
+          group flex
+          items-center gap-3
+          rounded-xl
+        " aria-label="Ir a proyectos de DevPilot AI">
+        <div class="
+            grid size-11
+            place-items-center
+            rounded-xl
+            bg-devpilot-plum
+            font-semibold
+            text-devpilot-sand
+            shadow-sm
+            transition-transform
+            group-hover:scale-105
+          ">
+          DP
+        </div>
+
+        <div>
+          <p class="
+              text-base font-semibold
+              leading-tight
+              tracking-tight
+              text-devpilot-ink
+            ">
+            DevPilot AI
+          </p>
+
+          <p class="
+              text-xs font-medium
+              text-devpilot-text-muted
+            ">
+            AI Development Assistant
+          </p>
+        </div>
+      </a>
+
+      <!-- NAV -->
+      <nav aria-label="Navegación principal" class="
+          grid w-full
+          grid-cols-2 gap-2
+          sm:flex sm:w-auto
+          sm:flex-wrap
+          sm:items-center
+          lg:ml-auto
+        ">
+        <a routerLink="/projects" routerLinkActive="
+            bg-devpilot-plum
+            text-devpilot-sand
+            shadow-sm
+          " class="ui-nav-link">
+          Proyectos
+        </a>
+
+        <a routerLink="/chat" routerLinkActive="
+            bg-devpilot-plum
+            text-devpilot-sand
+            shadow-sm
+          " class="ui-nav-link">
+          Chat
+        </a>
+      </nav>
+
+      <!-- SESSION -->
+      @if (authStore.user(); as user) {
+      <div class="
+            flex w-full
+            items-center gap-3
+            border-t
+            border-devpilot-stone/30
+            pt-4
+
+            lg:w-auto
+            lg:border-l
+            lg:border-t-0
+            lg:pl-5
+            lg:pt-0
+          ">
+        <div class="
+              grid size-10
+              shrink-0 place-items-center
+              rounded-full
+              bg-devpilot-mist
+              text-sm font-semibold
+              uppercase
+              text-devpilot-plum
+            " aria-hidden="true">
+          {{ user.email.charAt(0) }}
+        </div>
+
+        <div class="
+              min-w-0 flex-1
+              lg:max-w-48
+            ">
+          <p class="
+                truncate
+                text-sm font-medium
+                text-devpilot-ink
+              ">
+            {{ user.email }}
+          </p>
+
+          <p class="
+                text-xs font-normal
+                text-devpilot-text-muted
+              ">
+            Sesión activa
+          </p>
+        </div>
+
+        <button type="button" (click)="logout()" class="
+              ui-btn-secondary
+              flex-1
+              sm:flex-none
+            ">
+          Cerrar sesión
+        </button>
+      </div>
+      }
+    </div>
+  </header>
+
+  <main id="main-content" class="ui-shell-main">
+    <router-outlet />
+  </main>
+
+  <footer class="ui-shell-footer">
+    <div class="
+        mx-auto flex
+        max-w-7xl flex-col
+        gap-2 px-4 py-5
+        text-xs font-normal
+        text-devpilot-text-muted
+
+        sm:flex-row
+        sm:items-center
+        sm:justify-between
+        sm:px-6
+
+        lg:px-8
+      ">
+      <span>
+        DevPilot AI
+      </span>
+
+      <span>
+        Asistente inteligente para análisis
+        de proyectos software
+      </span>
+    </div>
+  </footer>
+</div>

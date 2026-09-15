@@ -1,0 +1,197 @@
+<main class="ui-auth-page">
+  <section class="ui-auth-container" aria-labelledby="register-title">
+    <div class="ui-auth-brand">
+      <div class="ui-brand-mark">
+        DP
+      </div>
+
+      <div>
+        <p class="
+            text-lg font-semibold
+            leading-tight
+            text-devpilot-ink
+          ">
+          DevPilot AI
+        </p>
+
+        <p class="
+            text-xs font-medium
+            text-devpilot-text-muted
+          ">
+          AI Development Assistant
+        </p>
+      </div>
+    </div>
+
+    <div class="ui-auth-card">
+      <header class="mb-8 text-center">
+        <span class="ui-eyebrow">
+          Nueva cuenta
+        </span>
+
+        <h1 id="register-title" class="ui-auth-title">
+          Crear cuenta
+        </h1>
+
+        <p class="ui-auth-description">
+          Crea tu cuenta y empieza a trabajar
+          con tus proyectos en DevPilot AI.
+        </p>
+      </header>
+
+      <form class="space-y-5" [formGroup]="form" (ngSubmit)="submit()" novalidate>
+        <div>
+          <label for="email" class="ui-label">
+            Correo electrónico
+          </label>
+
+          <input id="email" type="email" formControlName="email" autocomplete="email" placeholder="tu@email.com"
+            class="ui-input" />
+
+          @if (
+          form.controls.email.touched &&
+          form.controls.email.hasError(
+          'required'
+          )
+          ) {
+          <p class="ui-field-error">
+            El email es obligatorio.
+          </p>
+          }
+
+          @if (
+          form.controls.email.touched &&
+          form.controls.email.hasError(
+          'email'
+          )
+          ) {
+          <p class="ui-field-error">
+            Introduce un email válido.
+          </p>
+          }
+        </div>
+
+        <div>
+          <label for="password" class="ui-label">
+            Contraseña
+          </label>
+
+          <input id="password" type="password" formControlName="password" autocomplete="new-password"
+            placeholder="Mínimo 12 caracteres" class="ui-input" />
+
+          @if (
+          form.controls.password.touched &&
+          form.controls.password.hasError(
+          'required'
+          )
+          ) {
+          <p class="ui-field-error">
+            La contraseña es obligatoria.
+          </p>
+          }
+
+          @if (
+          form.controls.password.touched &&
+          form.controls.password.hasError(
+          'minlength'
+          )
+          ) {
+          <p class="ui-field-error">
+            Usa al menos 12 caracteres.
+          </p>
+          }
+
+          @if (
+          form.controls.password.touched &&
+          form.controls.password.hasError(
+          'maxlength'
+          )
+          ) {
+          <p class="ui-field-error">
+            La contraseña no puede superar
+            128 caracteres.
+          </p>
+          }
+
+          <p class="
+              mt-2 text-xs
+              font-normal leading-5
+              text-devpilot-text-muted
+            ">
+            Recomendamos una contraseña larga y
+            diferente a la de otros servicios.
+          </p>
+        </div>
+
+        <div>
+          <label for="confirmPassword" class="ui-label">
+            Repite la contraseña
+          </label>
+
+          <input id="confirmPassword" type="password" formControlName="confirmPassword" autocomplete="new-password"
+            placeholder="Repite tu contraseña" class="ui-input" />
+
+          @if (
+          form.controls.confirmPassword.touched &&
+          form.controls.confirmPassword.hasError(
+          'required'
+          )
+          ) {
+          <p class="ui-field-error">
+            Repite la contraseña.
+          </p>
+          }
+
+          @if (
+          form.controls.confirmPassword.touched &&
+          form.hasError(
+          'passwordsMismatch'
+          )
+          ) {
+          <p class="ui-field-error">
+            Las contraseñas no coinciden.
+          </p>
+          }
+        </div>
+
+        @if (authStore.error()) {
+        <div role="alert" class="ui-alert-error">
+          {{ authStore.error() }}
+        </div>
+        }
+
+        <button type="submit" [disabled]="authStore.loading()" class="ui-btn-primary w-full min-h-12">
+          @if (authStore.loading()) {
+          <span class="
+                mr-2 size-4 animate-spin
+                rounded-full border-2
+                border-devpilot-sand/40
+                border-t-devpilot-sand
+              " aria-hidden="true"></span>
+
+          Creando cuenta...
+          } @else {
+          Crear cuenta
+          }
+        </button>
+      </form>
+
+      <div class="
+          my-7 h-px
+          bg-devpilot-stone/30
+        "></div>
+
+      <p class="
+          text-center
+          text-sm
+          text-devpilot-text-muted
+        ">
+        ¿Ya tienes cuenta?
+
+        <a routerLink="/login" class="ui-auth-link ml-1">
+          Iniciar sesión
+        </a>
+      </p>
+    </div>
+  </section>
+</main>

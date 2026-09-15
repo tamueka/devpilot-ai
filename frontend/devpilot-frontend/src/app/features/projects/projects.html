@@ -1,0 +1,1766 @@
+<section class="space-y-8">
+  <!-- Cabecera -->
+  <header>
+    <p class="ui-eyebrow">
+      Workspace
+    </p>
+
+    <h1
+      class="
+        mt-2
+        text-3xl
+        font-bold
+        tracking-tight
+        text-devpilot-ink
+        sm:text-4xl
+      "
+    >
+      Proyectos
+    </h1>
+
+    <p
+      class="
+        mt-3
+        max-w-2xl
+        text-sm
+        leading-6
+        text-devpilot-text-muted
+        sm:text-base
+      "
+    >
+      Gestiona tus repositorios e indexa su código para
+      analizarlo con DevPilot AI.
+    </p>
+  </header>
+
+  <!-- Crear proyecto -->
+  <section class="ui-card p-6">
+    <header class="mb-6">
+      <h2
+        class="
+          text-xl
+          font-bold
+          text-devpilot-ink
+        "
+      >
+        Nuevo proyecto
+      </h2>
+
+      <p
+        class="
+          mt-1
+          text-sm
+          text-devpilot-text-muted
+        "
+      >
+        Crea un proyecto y después sube su código
+        en formato ZIP o RAR.
+      </p>
+    </header>
+
+    <form
+      class="
+        grid
+        gap-5
+        lg:grid-cols-2
+      "
+      [formGroup]="projectForm"
+      (ngSubmit)="createProject()"
+    >
+      <div>
+        <label
+          for="name"
+          class="ui-label"
+        >
+          Nombre del proyecto
+        </label>
+
+        <input
+          id="name"
+          type="text"
+          class="ui-input"
+          formControlName="name"
+          placeholder="Ej. Ecommerce Angular"
+        />
+
+        @if (
+          projectForm.controls.name.invalid &&
+          projectForm.controls.name.touched
+        ) {
+          <p class="ui-field-error">
+            El nombre es obligatorio.
+          </p>
+        }
+      </div>
+
+      <div>
+        <label
+          for="description"
+          class="ui-label"
+        >
+          Descripción
+        </label>
+
+        <textarea
+          id="description"
+          class="ui-textarea"
+          formControlName="description"
+          placeholder="Describe brevemente el proyecto"
+          rows="4"
+        ></textarea>
+      </div>
+
+      <div class="lg:col-span-2">
+        <button
+          type="submit"
+          class="ui-btn-primary"
+          [disabled]="
+            projectForm.invalid ||
+            creating()
+          "
+        >
+          @if (creating()) {
+            <span
+              class="ui-spinner"
+              aria-hidden="true"
+            ></span>
+
+            Creando proyecto...
+          } @else {
+            Crear proyecto
+          }
+        </button>
+      </div>
+    </form>
+  </section>
+
+  <!-- Proyectos -->
+  <section class="space-y-5">
+    <header
+      class="
+        flex
+        flex-col
+        gap-3
+        sm:flex-row
+        sm:items-end
+        sm:justify-between
+      "
+    >
+      <div>
+        <h2
+          class="
+            text-xl
+            font-bold
+            text-devpilot-ink
+          "
+        >
+          Mis proyectos
+        </h2>
+
+        <p
+          class="
+            mt-1
+            text-sm
+            text-devpilot-text-muted
+          "
+        >
+          Proyectos disponibles en DevPilot AI.
+        </p>
+      </div>
+
+      @if (!loading()) {
+        <span class="ui-badge">
+          {{ projects().length }}
+
+          @if (projects().length === 1) {
+            proyecto
+          } @else {
+            proyectos
+          }
+        </span>
+      }
+    </header>
+
+    <!-- Error global -->
+    @if (error()) {
+      <div
+        class="ui-alert-error"
+        role="alert"
+      >
+        {{ error() }}
+      </div>
+    }
+
+    <!-- Feedback eliminación -->
+    @if (deleteProjectSuccess()) {
+      <div
+        role="status"
+        aria-live="polite"
+        class="
+          flex
+          items-start
+          gap-3
+          rounded-2xl
+          border
+          border-devpilot-sage
+          bg-devpilot-sage/20
+          px-4
+          py-4
+          text-sm
+          text-devpilot-ink
+        "
+      >
+        <div
+          aria-hidden="true"
+          class="
+            grid
+            size-8
+            shrink-0
+            place-items-center
+            rounded-full
+            bg-devpilot-sage
+            font-semibold
+          "
+        >
+          ✓
+        </div>
+
+        <div>
+          <p class="font-semibold">
+            Proyecto eliminado
+          </p>
+
+          <p class="mt-1 font-normal">
+            {{ deleteProjectSuccess() }}
+          </p>
+        </div>
+      </div>
+    }
+
+    <!-- Loading -->
+    @if (loading()) {
+      <div
+        class="
+          ui-card-muted
+          flex
+          min-h-32
+          items-center
+          justify-center
+          gap-3
+          p-6
+          text-sm
+          text-devpilot-text-muted
+        "
+      >
+        <span
+          class="ui-spinner"
+          aria-hidden="true"
+        ></span>
+
+        Cargando proyectos...
+      </div>
+    } @else if (projects().length === 0) {
+
+      <!-- Sin proyectos -->
+      <div
+        class="
+          ui-card-muted
+          p-8
+          text-center
+        "
+      >
+        <div
+          class="
+            mx-auto
+            grid
+            size-12
+            place-items-center
+            rounded-2xl
+            bg-devpilot-mist
+            font-mono
+            text-sm
+            font-semibold
+            text-devpilot-ink
+          "
+        >
+          &lt;/&gt;
+        </div>
+
+        <h3
+          class="
+            mt-4
+            text-base
+            font-semibold
+            text-devpilot-ink
+          "
+        >
+          No tienes proyectos todavía
+        </h3>
+
+        <p
+          class="
+            mx-auto
+            mt-2
+            max-w-md
+            text-sm
+            leading-6
+            text-devpilot-text-muted
+          "
+        >
+          Crea tu primer proyecto para comenzar
+          a analizar código.
+        </p>
+      </div>
+    } @else {
+
+      <!-- Grid -->
+      <div
+        class="
+          grid
+          gap-5
+          xl:grid-cols-2
+        "
+      >
+        @for (
+          project of projects();
+          track project.id
+        ) {
+          <article
+            class="
+              ui-card
+              flex
+              min-h-80
+              flex-col
+              overflow-visible
+            "
+          >
+            <!-- Cabecera card -->
+            <header
+              class="
+                relative
+                flex
+                items-start
+                gap-4
+                border-b
+                border-devpilot-stone/20
+                p-5
+              "
+            >
+              <div
+                class="
+                  grid
+                  size-11
+                  shrink-0
+                  place-items-center
+                  rounded-xl
+                  bg-devpilot-mist
+                  font-mono
+                  text-xs
+                  font-semibold
+                  text-devpilot-ink
+                "
+              >
+                &lt;/&gt;
+              </div>
+
+              <div class="min-w-0 flex-1">
+                <h3
+                  class="
+                    truncate
+                    text-base
+                    font-semibold
+                    text-devpilot-ink
+                  "
+                >
+                  {{ project.name }}
+                </h3>
+
+                <div class="mt-2">
+                  <span
+                    class="ui-badge"
+                    [class.bg-devpilot-sage]="
+                      project.status === 'INDEXED' &&
+                      uploadingProjectId() !== project.id
+                    "
+                    [class.bg-devpilot-mist]="
+                      project.status === 'CREATED' &&
+                      uploadingProjectId() !== project.id
+                    "
+                    [class.bg-devpilot-sand]="
+                      uploadingProjectId() === project.id ||
+                      (
+                        project.status !== 'INDEXED' &&
+                        project.status !== 'CREATED'
+                      )
+                    "
+                  >
+                    @if (
+                      uploadingProjectId() === project.id
+                    ) {
+                      <span
+                        class="ui-spinner"
+                        aria-hidden="true"
+                      ></span>
+                    }
+
+                    {{ getStatusLabel(project) }}
+                  </span>
+                </div>
+              </div>
+
+              <!-- Menú -->
+              <div
+                class="
+                  relative
+                  ml-auto
+                  shrink-0
+                "
+              >
+                <button
+                  type="button"
+                  class="ui-btn-icon"
+                  aria-label="Opciones del proyecto"
+                  [attr.aria-expanded]="
+                    openProjectMenuId() === project.id
+                  "
+                  (click)="toggleProjectMenu(project.id)"
+                >
+                  <span
+                    aria-hidden="true"
+                    class="
+                      text-xl
+                      leading-none
+                    "
+                  >
+                    ⋮
+                  </span>
+                </button>
+
+                @if (
+                  openProjectMenuId() === project.id
+                ) {
+                  <div
+                    role="menu"
+                    class="
+                      absolute
+                      right-0
+                      top-12
+                      z-30
+                      w-52
+                      overflow-hidden
+                      rounded-xl
+                      border
+                      border-devpilot-stone/30
+                      bg-white
+                      p-1.5
+                      shadow-xl
+                    "
+                  >
+                    <button
+                      type="button"
+                      role="menuitem"
+                      class="
+                        flex
+                        min-h-10
+                        w-full
+                        items-center
+                        rounded-lg
+                        px-3
+                        text-left
+                        text-sm
+                        font-medium
+                        text-red-700
+                        transition
+                        hover:bg-red-50
+                      "
+                      (click)="
+                        requestProjectDeletion(
+                          project
+                        )
+                      "
+                    >
+                      Eliminar proyecto
+                    </button>
+                  </div>
+                }
+              </div>
+            </header>
+
+            <!-- Contenido card -->
+            <div
+              class="
+                flex-1
+                space-y-4
+                p-5
+              "
+            >
+              @if (project.description) {
+                <p
+                  class="
+                    text-sm
+                    leading-6
+                    text-devpilot-text
+                  "
+                >
+                  {{ project.description }}
+                </p>
+              } @else {
+                <p
+                  class="
+                    text-sm
+                    text-devpilot-text-muted
+                  "
+                >
+                  Sin descripción.
+                </p>
+              }
+
+              @if (
+                getUploadedFileName(project);
+                as filename
+              ) {
+                <div
+                  class="
+                    ui-card-muted
+                    flex
+                    min-w-0
+                    items-center
+                    gap-3
+                    p-3
+                  "
+                >
+                  <span
+                    class="
+                      grid
+                      size-10
+                      shrink-0
+                      place-items-center
+                      rounded-lg
+                      bg-devpilot-mist
+                      font-mono
+                      text-xs
+                      font-semibold
+                      text-devpilot-ink
+                    "
+                  >
+                    {{ getArchiveLabel(project) }}
+                  </span>
+
+                  <div class="min-w-0">
+                    <span
+                      class="
+                        block
+                        text-xs
+                        font-normal
+                        text-devpilot-text-muted
+                      "
+                    >
+                      Archivo indexado
+                    </span>
+
+                    <strong
+                      class="
+                        block
+                        truncate
+                        text-sm
+                        font-medium
+                        text-devpilot-ink
+                      "
+                      [title]="filename"
+                    >
+                      {{ filename }}
+                    </strong>
+                  </div>
+                </div>
+              }
+
+              @if (
+                project.status === 'INDEXED'
+              ) {
+                <p
+                  class="
+                    flex
+                    items-center
+                    gap-2
+                    text-sm
+                    font-medium
+                    text-devpilot-ink
+                  "
+                >
+                  <span
+                    aria-hidden="true"
+                    class="
+                      grid
+                      size-5
+                      place-items-center
+                      rounded-full
+                      bg-devpilot-sage
+                      text-xs
+                    "
+                  >
+                    ✓
+                  </span>
+
+                  Proyecto preparado para consultas con IA
+                </p>
+              }
+            </div>
+
+            <!-- Error upload -->
+            @if (
+              uploadErrorProjectId() === project.id &&
+              uploadError()
+            ) {
+              <div class="px-5 pb-4">
+                <div
+                  class="
+                    ui-alert-error
+                    flex
+                    items-start
+                    gap-3
+                  "
+                  role="alert"
+                  aria-live="polite"
+                >
+                  <div
+                    aria-hidden="true"
+                    class="
+                      grid
+                      size-7
+                      shrink-0
+                      place-items-center
+                      rounded-full
+                      bg-red-100
+                      font-semibold
+                    "
+                  >
+                    !
+                  </div>
+
+                  <div class="min-w-0 flex-1">
+                    <p class="font-semibold">
+                      No se pudo procesar el archivo
+                    </p>
+
+                    <p class="mt-1 font-normal">
+                      {{ uploadError() }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            }
+
+            <!-- Éxito upload -->
+            @if (
+              uploadSuccessProjectId() === project.id &&
+              uploadSuccess()
+            ) {
+              <div class="px-5 pb-4">
+                <div
+                  role="status"
+                  aria-live="polite"
+                  class="
+                    flex
+                    items-start
+                    gap-3
+                    rounded-2xl
+                    border
+                    border-devpilot-sage
+                    bg-devpilot-sage/20
+                    px-4
+                    py-3
+                    text-sm
+                    text-devpilot-ink
+                  "
+                >
+                  <div
+                    aria-hidden="true"
+                    class="
+                      grid
+                      size-7
+                      shrink-0
+                      place-items-center
+                      rounded-full
+                      bg-devpilot-sage
+                      font-semibold
+                    "
+                  >
+                    ✓
+                  </div>
+
+                  <div class="min-w-0 flex-1">
+                    <p class="font-semibold">
+                      Proyecto indexado
+                    </p>
+
+                    <p class="mt-1 font-normal">
+                      {{ uploadSuccess() }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            }
+
+            <!-- Acciones -->
+            <footer
+              class="
+                border-t
+                border-devpilot-stone/20
+                p-5
+              "
+            >
+              <input
+                class="
+                  absolute
+                  h-px
+                  w-px
+                  overflow-hidden
+                  opacity-0
+                "
+                [id]="'archive-' + project.id"
+                type="file"
+                accept=".zip,.rar,application/zip,application/vnd.rar,application/x-rar-compressed"
+                [disabled]="
+                  uploadingProjectId() !== null
+                "
+                (change)="
+                  uploadArchive(
+                    project.id,
+                    $event
+                  )
+                "
+              />
+
+              <div
+                class="
+                  flex
+                  flex-wrap
+                  gap-2
+                "
+              >
+                <label
+                  class="ui-btn-secondary"
+                  [class.pointer-events-none]="
+                    uploadingProjectId() !== null
+                  "
+                  [class.opacity-50]="
+                    uploadingProjectId() !== null
+                  "
+                  [for]="'archive-' + project.id"
+                >
+                  @if (
+                    uploadingProjectId() === project.id
+                  ) {
+                    <span
+                      class="ui-spinner"
+                      aria-hidden="true"
+                    ></span>
+
+                    Indexando...
+                  } @else if (
+                    project.status === 'INDEXED'
+                  ) {
+                    Reindexar archivo
+                  } @else {
+                    Subir ZIP / RAR
+                  }
+                </label>
+
+                @if (
+                  project.status === 'INDEXED'
+                ) {
+                  <a
+                    class="ui-btn-primary"
+                    routerLink="/chat"
+                    [queryParams]="{
+                      projectId: project.id
+                    }"
+                  >
+                    Abrir chat
+                  </a>
+
+                  <button
+                    type="button"
+                    class="ui-btn-secondary"
+                    [disabled]="
+                      generatingReadmeProjectId() !== null
+                    "
+                    (click)="generateReadme(project)"
+                  >
+                    @if (
+                      generatingReadmeProjectId() === project.id
+                    ) {
+                      <span
+                        class="ui-spinner"
+                        aria-hidden="true"
+                      ></span>
+
+                      Generando README...
+                    } @else {
+                      Generar README
+                    }
+                  </button>
+
+                  <button
+                    type="button"
+                    class="ui-btn-secondary"
+                    [disabled]="
+                      generatingUnitTests() ||
+                      loadingUnitTestDocuments()
+                    "
+                    (click)="openUnitTests(project)"
+                  >
+                    Generar tests
+                  </button>
+                }
+              </div>
+            </footer>
+          </article>
+        }
+      </div>
+    }
+  </section>
+
+  <!-- Modal README -->
+  @if (showReadme()) {
+    <div
+      class="ui-modal-backdrop"
+      (click)="closeReadme()"
+    >
+      <section
+        class="
+          ui-modal-panel
+          max-w-6xl
+        "
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="readme-title"
+        (click)="$event.stopPropagation()"
+      >
+        <header
+          class="
+            flex
+            flex-col
+            gap-4
+            border-b
+            border-devpilot-stone/20
+            p-5
+            sm:flex-row
+            sm:items-center
+            sm:justify-between
+          "
+        >
+          <div>
+            <p class="ui-eyebrow">
+              README generado con IA
+            </p>
+
+            <h2
+              id="readme-title"
+              class="
+                mt-1
+                text-xl
+                font-bold
+                text-devpilot-ink
+              "
+            >
+              {{ readmeProjectName() }}
+            </h2>
+          </div>
+
+          <div
+            class="
+              flex
+              flex-wrap
+              items-center
+              gap-2
+            "
+          >
+            @if (generatedReadme()) {
+              <button
+                type="button"
+                class="ui-btn-secondary"
+                (click)="copyReadme()"
+              >
+                Copiar Markdown
+              </button>
+
+              <button
+                type="button"
+                class="ui-btn-primary"
+                (click)="downloadReadme()"
+              >
+                Descargar README.md
+              </button>
+            }
+
+            <button
+              type="button"
+              class="ui-btn-icon"
+              aria-label="Cerrar README"
+              (click)="closeReadme()"
+            >
+              ×
+            </button>
+          </div>
+        </header>
+
+        @if (
+          generatingReadmeProjectId()
+        ) {
+          <div
+            class="
+              flex
+              min-h-80
+              flex-col
+              items-center
+              justify-center
+              gap-3
+              p-8
+              text-center
+            "
+          >
+            <span
+              class="ui-spinner"
+              aria-hidden="true"
+            ></span>
+
+            <strong
+              class="
+                text-base
+                font-semibold
+                text-devpilot-ink
+              "
+            >
+              Analizando el proyecto...
+            </strong>
+
+            <p
+              class="
+                max-w-lg
+                text-sm
+                leading-6
+                text-devpilot-text-muted
+              "
+            >
+              DevPilot está recuperando el código relevante
+              y generando la documentación.
+            </p>
+          </div>
+        } @else if (
+          generatedReadme();
+          as readme
+        ) {
+          <div
+            class="
+              grid
+              max-h-[75vh]
+              overflow-auto
+              lg:grid-cols-[minmax(0,1fr)_18rem]
+            "
+          >
+            <article
+              data-testid="readme-preview"
+              class="
+                ui-markdown
+                min-w-0
+                p-6
+              "
+              [innerHTML]="formattedReadme()"
+            ></article>
+
+            @if (
+              readme.sources.length > 0
+            ) {
+              <aside
+                class="
+                  border-t
+                  border-devpilot-stone/20
+                  bg-devpilot-sand/20
+                  p-5
+                  lg:border-l
+                  lg:border-t-0
+                "
+              >
+                <header
+                  class="
+                    flex
+                    items-center
+                    justify-between
+                    gap-3
+                  "
+                >
+                  <strong
+                    class="
+                      text-sm
+                      font-semibold
+                      text-devpilot-ink
+                    "
+                  >
+                    Fuentes analizadas
+                  </strong>
+
+                  <span class="ui-badge">
+                    {{ readme.sources.length }}
+                  </span>
+                </header>
+
+                <div class="mt-4 space-y-2">
+                  @for (
+                    source of readme.sources;
+                    track source.path
+                  ) {
+                    <div
+                      data-testid="readme-source"
+                      class="
+                        ui-card-muted
+                        min-w-0
+                        p-3
+                      "
+                    >
+                      <strong
+                        class="
+                          block
+                          break-all
+                          text-xs
+                          font-medium
+                          text-devpilot-ink
+                        "
+                      >
+                        {{ source.path }}
+                      </strong>
+
+                      <span
+                        class="
+                          mt-1
+                          block
+                          text-xs
+                          font-medium
+                          text-devpilot-text-muted
+                        "
+                      >
+                        {{ source.language }}
+                      </span>
+                    </div>
+                  }
+                </div>
+              </aside>
+            }
+          </div>
+        }
+      </section>
+    </div>
+  }
+
+  <!-- Modal tests unitarios -->
+  @if (showUnitTests()) {
+    <div
+      class="ui-modal-backdrop"
+      (click)="closeUnitTests()"
+    >
+      <section
+        class="
+          ui-modal-panel
+          max-w-6xl
+        "
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="unit-test-title"
+        (click)="$event.stopPropagation()"
+      >
+        <header
+          class="
+            flex
+            flex-col
+            gap-4
+            border-b
+            border-devpilot-stone/20
+            p-5
+            sm:flex-row
+            sm:items-center
+            sm:justify-between
+          "
+        >
+          <div>
+            <p class="ui-eyebrow">
+              Generación asistida por IA
+            </p>
+
+            <h2
+              id="unit-test-title"
+              class="
+                mt-1
+                text-xl
+                font-bold
+                text-devpilot-ink
+              "
+            >
+              Generar tests unitarios
+            </h2>
+          </div>
+
+          <div
+            class="
+              flex
+              flex-wrap
+              items-center
+              gap-2
+            "
+          >
+            @if (
+              generatedUnitTests();
+              as unitTests
+            ) {
+              <button
+                type="button"
+                class="ui-btn-secondary"
+                (click)="copyUnitTests()"
+              >
+                Copiar código
+              </button>
+
+              <button
+                type="button"
+                class="ui-btn-primary"
+                (click)="downloadUnitTests()"
+              >
+                Descargar
+                {{ unitTests.suggestedFilename }}
+              </button>
+            }
+
+            <button
+              type="button"
+              class="ui-btn-icon"
+              aria-label="Cerrar generación de tests"
+              (click)="closeUnitTests()"
+            >
+              ×
+            </button>
+          </div>
+        </header>
+
+        <div
+          class="
+            max-h-[75vh]
+            overflow-auto
+          "
+        >
+          <!-- Selector -->
+          <section
+            class="
+              border-b
+              border-devpilot-stone/20
+              p-6
+            "
+          >
+            <div class="max-w-3xl">
+              <h3
+                class="
+                  text-base
+                  font-semibold
+                  text-devpilot-ink
+                "
+              >
+                Archivo a testear
+              </h3>
+
+              <p
+                class="
+                  mt-1
+                  text-sm
+                  leading-6
+                  text-devpilot-text-muted
+                "
+              >
+                Selecciona un archivo indexado del proyecto.
+                DevPilot analizará su código y el contexto
+                relacionado.
+              </p>
+            </div>
+
+            @if (
+              loadingUnitTestDocuments()
+            ) {
+              <div
+                class="
+                  mt-5
+                  flex
+                  items-center
+                  gap-3
+                  text-sm
+                  text-devpilot-text-muted
+                "
+              >
+                <span
+                  class="ui-spinner"
+                  aria-hidden="true"
+                ></span>
+
+                Cargando archivos del proyecto...
+              </div>
+            } @else if (
+              unitTestDocuments().length === 0
+            ) {
+              <div
+                class="
+                  ui-card-muted
+                  mt-5
+                  p-4
+                  text-sm
+                  text-devpilot-text-muted
+                "
+              >
+                No hay archivos disponibles para generar tests.
+              </div>
+            } @else {
+              <div
+                class="
+                  mt-5
+                  grid
+                  gap-4
+                  md:grid-cols-[minmax(0,1fr)_auto]
+                  md:items-end
+                "
+              >
+                <div>
+                  <label
+                    for="unit-test-document"
+                    class="ui-label"
+                  >
+                    Archivo
+                  </label>
+
+                  <select
+                    #unitTestDocumentSelect
+                    id="unit-test-document"
+                    class="ui-select"
+                    [disabled]="generatingUnitTests()"
+                    (change)="
+                      selectUnitTestDocument(
+                        unitTestDocumentSelect.value
+                      )
+                    "
+                  >
+                    <option value="">
+                      Selecciona un archivo
+                    </option>
+
+                    @for (
+                      document of unitTestDocuments();
+                      track document.id
+                    ) {
+                      <option [value]="document.id">
+                        {{ document.path }}
+                      </option>
+                    }
+                  </select>
+                </div>
+
+                <button
+                  type="button"
+                  class="ui-btn-primary"
+                  [disabled]="
+                    !selectedUnitTestDocumentId() ||
+                    generatingUnitTests()
+                  "
+                  (click)="generateUnitTests()"
+                >
+                  @if (
+                    generatingUnitTests()
+                  ) {
+                    <span
+                      class="ui-spinner"
+                      aria-hidden="true"
+                    ></span>
+
+                    Generando tests...
+                  } @else {
+                    Generar tests con IA
+                  }
+                </button>
+              </div>
+            }
+          </section>
+
+          <!-- Resultado -->
+          @if (
+            generatingUnitTests()
+          ) {
+            <section
+              class="
+                flex
+                min-h-72
+                flex-col
+                items-center
+                justify-center
+                gap-3
+                p-8
+                text-center
+              "
+            >
+              <span
+                class="ui-spinner"
+                aria-hidden="true"
+              ></span>
+
+              <strong
+                class="
+                  text-base
+                  font-semibold
+                  text-devpilot-ink
+                "
+              >
+                Analizando el código...
+              </strong>
+
+              <p
+                class="
+                  max-w-xl
+                  text-sm
+                  leading-6
+                  text-devpilot-text-muted
+                "
+              >
+                DevPilot está recuperando dependencias,
+                configuración y código relacionado para
+                generar tests coherentes con el proyecto.
+              </p>
+            </section>
+          } @else if (
+            generatedUnitTests();
+            as unitTests
+          ) {
+            <section class="p-6">
+              <div class="ui-card overflow-hidden">
+                <header
+                  data-testid="unit-test-result-header"
+                  class="
+                    flex
+                    flex-col
+                    gap-3
+                    border-b
+                    border-devpilot-stone/20
+                    p-4
+                    sm:flex-row
+                    sm:items-center
+                    sm:justify-between
+                  "
+                >
+                  <div>
+                    <span
+                      class="
+                        block
+                        text-xs
+                        text-devpilot-text-muted
+                      "
+                    >
+                      Archivo generado
+                    </span>
+
+                    <strong
+                      class="
+                        mt-1
+                        block
+                        text-sm
+                        font-medium
+                        text-devpilot-ink
+                      "
+                    >
+                      {{ unitTests.suggestedFilename }}
+                    </strong>
+                  </div>
+
+                  <span class="ui-badge">
+                    Generado
+                  </span>
+                </header>
+
+                <pre
+                  class="
+                    m-0
+                    overflow-x-auto
+                    bg-slate-950
+                    p-5
+                    text-sm
+                    leading-6
+                    text-slate-100
+                  "
+                ><code data-testid="unit-test-code">{{ unitTests.content }}</code></pre>
+              </div>
+
+              @if (
+                unitTests.sources.length > 0
+              ) {
+                <aside class="mt-5">
+                  <header
+                    class="
+                      flex
+                      items-center
+                      justify-between
+                      gap-3
+                    "
+                  >
+                    <strong
+                      class="
+                        text-sm
+                        font-semibold
+                        text-devpilot-ink
+                      "
+                    >
+                      Fuentes utilizadas
+                    </strong>
+
+                    <span class="ui-badge">
+                      {{ unitTests.sources.length }}
+                    </span>
+                  </header>
+
+                  <div
+                    class="
+                      mt-3
+                      grid
+                      gap-2
+                      sm:grid-cols-2
+                    "
+                  >
+                    @for (
+                      source of unitTests.sources;
+                      track source.path
+                    ) {
+                      <div
+                        class="
+                          ui-card-muted
+                          min-w-0
+                          p-3
+                        "
+                      >
+                        <strong
+                          class="
+                            block
+                            break-all
+                            text-xs
+                            font-medium
+                            text-devpilot-ink
+                          "
+                        >
+                          {{ source.path }}
+                        </strong>
+
+                        <span
+                          class="
+                            mt-1
+                            block
+                            text-xs
+                            font-medium
+                            text-devpilot-text-muted
+                          "
+                        >
+                          {{ source.language }}
+                        </span>
+                      </div>
+                    }
+                  </div>
+                </aside>
+              }
+            </section>
+          } @else if (
+            !loadingUnitTestDocuments() &&
+            selectedUnitTestDocumentId()
+          ) {
+            <div
+              class="
+                flex
+                min-h-60
+                flex-col
+                items-center
+                justify-center
+                p-8
+                text-center
+              "
+            >
+              <div
+                class="
+                  grid
+                  size-12
+                  place-items-center
+                  rounded-xl
+                  bg-devpilot-mist
+                  font-mono
+                  text-xs
+                  font-semibold
+                  text-devpilot-ink
+                "
+              >
+                TEST
+              </div>
+
+              <h3
+                class="
+                  mt-4
+                  text-base
+                  font-semibold
+                  text-devpilot-ink
+                "
+              >
+                Archivo preparado
+              </h3>
+
+              <p
+                class="
+                  mt-2
+                  text-sm
+                  text-devpilot-text-muted
+                "
+              >
+                Pulsa «Generar tests con IA» para
+                comenzar el análisis.
+              </p>
+            </div>
+          } @else if (
+            !loadingUnitTestDocuments()
+          ) {
+            <div
+              class="
+                flex
+                min-h-60
+                flex-col
+                items-center
+                justify-center
+                p-8
+                text-center
+              "
+            >
+              <div
+                class="
+                  grid
+                  size-12
+                  place-items-center
+                  rounded-xl
+                  bg-devpilot-mist
+                  font-mono
+                  text-xs
+                  font-semibold
+                  text-devpilot-ink
+                "
+              >
+                &lt;/&gt;
+              </div>
+
+              <h3
+                class="
+                  mt-4
+                  text-base
+                  font-semibold
+                  text-devpilot-ink
+                "
+              >
+                Selecciona un archivo
+              </h3>
+
+              <p
+                class="
+                  mt-2
+                  max-w-md
+                  text-sm
+                  leading-6
+                  text-devpilot-text-muted
+                "
+              >
+                DevPilot generará los tests utilizando
+                el código seleccionado y el contexto
+                del proyecto.
+              </p>
+            </div>
+          }
+        </div>
+      </section>
+    </div>
+  }
+
+  <!-- Modal eliminar proyecto -->
+  @if (
+    projectToDelete();
+    as project
+  ) {
+    <div
+      class="ui-modal-backdrop"
+      (click)="cancelProjectDeletion()"
+    >
+      <section
+        role="alertdialog"
+        aria-modal="true"
+        aria-labelledby="delete-project-title"
+        aria-describedby="delete-project-description"
+        class="
+          ui-modal-panel
+          max-w-lg
+        "
+        (click)="$event.stopPropagation()"
+      >
+        <header
+          class="
+            flex
+            items-start
+            gap-4
+            border-b
+            border-devpilot-stone/20
+            p-6
+          "
+        >
+          <div
+            aria-hidden="true"
+            class="
+              grid
+              size-11
+              shrink-0
+              place-items-center
+              rounded-full
+              bg-red-100
+              text-xl
+              font-semibold
+              text-red-700
+            "
+          >
+            !
+          </div>
+
+          <div class="min-w-0">
+            <h2
+              id="delete-project-title"
+              class="
+                text-xl
+                font-bold
+                text-devpilot-ink
+              "
+            >
+              Eliminar proyecto
+            </h2>
+
+            <p
+              id="delete-project-description"
+              class="
+                mt-2
+                text-sm
+                font-normal
+                leading-6
+                text-devpilot-text-muted
+              "
+            >
+              ¿Seguro que quieres eliminar
+
+              <strong
+                class="
+                  break-words
+                  font-semibold
+                  text-devpilot-ink
+                "
+              >
+                "{{ project.name }}"
+              </strong>?
+            </p>
+          </div>
+        </header>
+
+        <div class="space-y-4 p-6">
+          <div
+            class="
+              rounded-xl
+              border
+              border-red-200
+              bg-red-50
+              p-4
+              text-sm
+              leading-6
+              text-red-800
+            "
+          >
+            Se eliminarán los archivos del proyecto,
+            documentos indexados, chunks,
+            conversaciones, mensajes y demás datos
+            asociados.
+
+            <strong
+              class="
+                block
+                pt-2
+                font-semibold
+              "
+            >
+              Esta acción no se puede deshacer.
+            </strong>
+          </div>
+
+          @if (deleteProjectError()) {
+            <div
+              role="alert"
+              class="ui-alert-error"
+            >
+              {{ deleteProjectError() }}
+            </div>
+          }
+        </div>
+
+        <footer
+          class="
+            flex
+            flex-col-reverse
+            gap-2
+            border-t
+            border-devpilot-stone/20
+            bg-devpilot-sand/20
+            p-5
+            sm:flex-row
+            sm:justify-end
+          "
+        >
+          <button
+            type="button"
+            class="
+              ui-btn-secondary
+              sm:min-w-28
+            "
+            [disabled]="
+              deletingProjectId() !== null
+            "
+            (click)="cancelProjectDeletion()"
+          >
+            Cancelar
+          </button>
+
+          <button
+            type="button"
+            class="
+              ui-btn-danger
+              sm:min-w-40
+            "
+            [disabled]="
+              deletingProjectId() !== null
+            "
+            (click)="confirmProjectDeletion()"
+          >
+            @if (
+              deletingProjectId() === project.id
+            ) {
+              <span
+                aria-hidden="true"
+                class="
+                  size-4
+                  animate-spin
+                  rounded-full
+                  border-2
+                  border-white/40
+                  border-t-white
+                "
+              ></span>
+
+              Eliminando...
+            } @else {
+              Eliminar proyecto
+            }
+          </button>
+        </footer>
+      </section>
+    </div>
+  }
+</section>

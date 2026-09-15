@@ -1,0 +1,841 @@
+<section class="space-y-8">
+  <!-- PAGE HEADER -->
+  <header class="
+      flex flex-col gap-4
+      lg:flex-row lg:items-end lg:justify-between
+    ">
+    <div class="max-w-2xl">
+      <p class="
+          mb-2 text-xs font-semibold uppercase
+          tracking-[0.18em]
+          text-devpilot-plum
+        ">
+        AI Assistant
+      </p>
+
+      <h1 class="
+          text-3xl font-bold tracking-tight
+          text-devpilot-ink
+          sm:text-4xl
+        ">
+        Chat con tu código
+      </h1>
+
+      <p class="
+          mt-3 max-w-2xl
+          text-sm font-normal leading-6
+          text-devpilot-text-muted
+          sm:text-base
+        ">
+        Consulta tus proyectos, recupera conversaciones
+        anteriores y continúa trabajando con el contexto
+        real de tu código.
+      </p>
+    </div>
+
+    <div class="
+        inline-flex w-fit items-center gap-2
+        rounded-full border border-devpilot-stone/30
+        bg-devpilot-surface
+        px-4 py-2
+        text-xs font-medium
+        text-devpilot-plum
+        shadow-sm
+      ">
+      <span class="
+          size-2 rounded-full
+          bg-devpilot-sage
+        "></span>
+
+      Contexto RAG activo
+    </div>
+  </header>
+
+  <!-- ERROR -->
+  @if (error()) {
+  <div role="alert" class="ui-alert-error flex items-start gap-3">
+    <div aria-hidden="true" class="
+          grid size-8 shrink-0
+          place-items-center
+          rounded-full
+          bg-red-100
+          font-semibold
+        ">
+      !
+    </div>
+
+    <div>
+      <p class="font-semibold">
+        No se pudo completar la operación
+      </p>
+
+      <p class="mt-1 font-normal">
+        {{ error() }}
+      </p>
+    </div>
+  </div>
+  }
+
+  <!-- CHAT APP -->
+  <section class="
+      ui-card
+      grid min-w-0 overflow-hidden
+      lg:grid-cols-[300px_minmax(0,1fr)]
+    ">
+    <!-- SIDEBAR -->
+    <aside class="
+        flex max-h-[420px] flex-col
+        border-b border-devpilot-stone/20
+        bg-devpilot-surface-muted
+
+        lg:max-h-none
+        lg:min-h-[720px]
+        lg:border-b-0
+        lg:border-r
+      " aria-label="Historial de conversaciones">
+      <!-- SIDEBAR HEADER -->
+      <header class="
+          flex items-center
+          justify-between gap-4
+          border-b
+          border-devpilot-stone/20
+          px-5 py-5
+        ">
+        <div>
+          <h2 class="
+              text-base font-semibold
+              text-devpilot-ink
+            ">
+            Conversaciones
+          </h2>
+
+          <p class="
+              mt-1 text-xs font-normal
+              text-devpilot-text-muted
+            ">
+            Historial del proyecto
+          </p>
+        </div>
+
+        <button type="button" aria-label="Nueva conversación" title="Nueva conversación" [disabled]="
+            !chatForm.controls.projectId.value ||
+            sending()
+          " (click)="startNewConversation()" class="
+            ui-btn-primary
+            size-11 p-0
+            text-xl
+          ">
+          +
+        </button>
+      </header>
+
+      <!-- PROJECT SELECT -->
+      <div class="
+          border-b
+          border-devpilot-stone/20
+          p-4
+        ">
+        <label for="projectId" class="
+            mb-2 block
+            text-xs font-semibold uppercase
+            tracking-wider
+            text-devpilot-text-muted
+          ">
+          Proyecto
+        </label>
+
+        <select id="projectId" [formControl]="chatForm.controls.projectId" [disabled]="
+            loadingProjects() ||
+            sending()
+          " class="ui-select min-h-11">
+          <option value="">
+            @if (loadingProjects()) {
+            Cargando proyectos...
+            } @else {
+            Selecciona un proyecto
+            }
+          </option>
+
+          @for (
+          project of projects();
+          track project.id
+          ) {
+          <option [value]="project.id">
+            {{ project.name }}
+          </option>
+          }
+        </select>
+
+        @if (
+        !loadingProjects() &&
+        projects().length === 0
+        ) {
+        <p class="
+              mt-2 text-xs font-normal
+              leading-5
+              text-devpilot-text-muted
+            ">
+          Necesitas al menos un proyecto indexado
+          para utilizar el chat.
+        </p>
+        }
+      </div>
+
+      <!-- CONVERSATION LIST -->
+      <div class="
+          min-h-0 flex-1
+          overflow-y-auto p-3
+        ">
+        @if (loadingConversations()) {
+        <div class="
+              flex items-center gap-3
+              rounded-xl px-3 py-4
+              text-sm font-normal
+              text-devpilot-text-muted
+            ">
+          <span class="ui-spinner size-4"></span>
+
+          Cargando historial...
+        </div>
+        } @else if (
+        !chatForm.controls.projectId.value
+        ) {
+        <div class="
+              rounded-2xl border border-dashed
+              border-devpilot-stone/30
+              bg-white/60 p-4
+              text-sm font-normal leading-6
+              text-devpilot-text-muted
+            ">
+          Selecciona un proyecto para consultar
+          su historial.
+        </div>
+        } @else if (
+        conversations().length === 0
+        ) {
+        <div class="
+              rounded-2xl border border-dashed
+              border-devpilot-stone/30
+              bg-white/60 p-4
+            ">
+          <div class="
+                mb-3 grid size-9
+                place-items-center
+                rounded-xl
+                bg-devpilot-mist
+                text-xs font-semibold
+                text-devpilot-plum
+              ">
+            AI
+          </div>
+
+          <h3 class="
+                text-sm font-semibold
+                text-devpilot-ink
+              ">
+            Sin conversaciones
+          </h3>
+
+          <p class="
+                mt-1 text-xs font-normal
+                leading-5
+                text-devpilot-text-muted
+              ">
+            Haz tu primera pregunta a DevPilot.
+          </p>
+        </div>
+        } @else {
+        <div class="space-y-2">
+          @for (
+          conversation of conversations();
+          track conversation.id
+          ) {
+          <button type="button" (click)="
+                  selectConversation(
+                    conversation.id
+                  )
+                " [class.bg-devpilot-plum]="
+                  selectedConversationId() ===
+                  conversation.id
+                " [class.text-devpilot-sand]="
+                  selectedConversationId() ===
+                  conversation.id
+                " [class.bg-white]="
+                  selectedConversationId() !==
+                  conversation.id
+                " [class.text-devpilot-ink]="
+                  selectedConversationId() !==
+                  conversation.id
+                " class="
+                  flex min-h-16 w-full
+                  items-center gap-3
+                  rounded-2xl border
+                  border-devpilot-stone/20
+                  p-3 text-left
+                  transition
+                  hover:border-devpilot-plum/40
+                  hover:shadow-sm
+                ">
+            <span class="
+                    grid size-9 shrink-0
+                    place-items-center
+                    rounded-xl
+                    bg-devpilot-mist
+                    text-xs font-semibold
+                    text-devpilot-plum
+                  ">
+              AI
+            </span>
+
+            <span class="min-w-0 flex-1">
+              <span class="
+                      block truncate
+                      text-sm font-medium
+                    ">
+                {{
+                conversation.title ||
+                'Nueva conversación'
+                }}
+              </span>
+
+              <span class="
+                      mt-1 block truncate
+                      text-xs font-normal
+                      opacity-70
+                    ">
+                Conversación guardada
+              </span>
+            </span>
+          </button>
+          }
+        </div>
+        }
+      </div>
+    </aside>
+
+    <!-- CONVERSATION -->
+    <section class="
+        flex min-h-[680px]
+        min-w-0 flex-col
+        bg-devpilot-canvas
+      " aria-label="Conversación con DevPilot AI">
+      <!-- MESSAGES -->
+      <div #messagesContainer class="
+          min-h-0 flex-1
+          overflow-y-auto
+          scroll-smooth
+          px-4 py-6
+
+          sm:px-6
+          lg:px-8
+        ">
+        @if (loadingConversation()) {
+        <!-- LOADING -->
+        <div class="
+              grid min-h-[480px]
+              place-items-center
+              text-center
+            ">
+          <div>
+            <div class="
+                  ui-spinner
+                  mx-auto mb-5
+                  size-10 border-4
+                "></div>
+
+            <h2 class="
+                  text-lg font-semibold
+                  text-devpilot-ink
+                ">
+              Cargando conversación...
+            </h2>
+
+            <p class="
+                  mt-2 text-sm font-normal
+                  text-devpilot-text-muted
+                ">
+              Recuperando los mensajes anteriores.
+            </p>
+          </div>
+        </div>
+        } @else if (messages().length === 0) {
+        <!-- EMPTY CHAT -->
+        <div class="
+              grid min-h-[480px]
+              place-items-center
+              px-4 text-center
+            ">
+          <div class="max-w-xl">
+            <div class="
+                  mx-auto mb-5
+                  grid size-16
+                  place-items-center
+                  rounded-2xl
+                  bg-devpilot-plum
+                  font-mono text-lg
+                  font-semibold
+                  text-devpilot-sand
+                  shadow-sm
+                ">
+              &lt;/&gt;
+            </div>
+
+            <h2 class="
+                  text-2xl font-bold
+                  tracking-tight
+                  text-devpilot-ink
+                ">
+              Pregunta sobre tu código
+            </h2>
+
+            <p class="
+                  mx-auto mt-3 max-w-lg
+                  text-sm font-normal leading-6
+                  text-devpilot-text-muted
+                ">
+              DevPilot buscará los fragmentos más relevantes
+              del proyecto y generará una respuesta utilizando
+              el código indexado como contexto.
+            </p>
+
+            <div class="
+                  mt-6 flex flex-wrap
+                  justify-center gap-2
+                ">
+              <span class="
+                    ui-badge
+                    border
+                    border-devpilot-stone/30
+                    bg-devpilot-surface
+                    px-3 py-2
+                    text-devpilot-text
+                  ">
+                ¿Qué arquitectura utiliza?
+              </span>
+
+              <span class="
+                    ui-badge
+                    border
+                    border-devpilot-stone/30
+                    bg-devpilot-surface
+                    px-3 py-2
+                    text-devpilot-text
+                  ">
+                ¿Dónde se consume la API?
+              </span>
+
+              <span class="
+                    ui-badge
+                    border
+                    border-devpilot-stone/30
+                    bg-devpilot-surface
+                    px-3 py-2
+                    text-devpilot-text
+                  ">
+                ¿Qué hace este proyecto?
+              </span>
+            </div>
+          </div>
+        </div>
+        } @else {
+        <!-- MESSAGE LIST -->
+        <div class="
+              mx-auto max-w-4xl
+              space-y-7
+            ">
+          @for (
+          message of messages();
+          track message.id
+          ) {
+          @if (message.role === 'user') {
+          <!-- USER MESSAGE -->
+          <article class="
+                    flex justify-end
+                    gap-3
+                  ">
+            <div class="
+                      max-w-[85%]
+                      sm:max-w-[75%]
+                    ">
+              <div class="
+                        mb-1.5
+                        flex justify-end
+                      ">
+                <span class="
+                          text-xs font-medium
+                          text-devpilot-text-muted
+                        ">
+                  Tú
+                </span>
+              </div>
+
+              <div class="
+                        rounded-2xl
+                        rounded-tr-md
+                        bg-devpilot-plum
+                        px-4 py-3
+                        text-sm font-normal
+                        leading-6
+                        text-devpilot-sand
+                        shadow-sm
+                      ">
+                <p class="whitespace-pre-wrap">
+                  {{ message.content }}
+                </p>
+              </div>
+            </div>
+
+            <div class="
+                      mt-5 grid size-9
+                      shrink-0 place-items-center
+                      rounded-full
+                      bg-devpilot-sage
+                      text-xs font-semibold
+                      text-devpilot-ink
+                    ">
+              Tú
+            </div>
+          </article>
+          } @else {
+          <!-- ASSISTANT MESSAGE -->
+          <article class="
+                    flex items-start
+                    gap-3
+                  ">
+            <div class="
+                      grid size-9 shrink-0
+                      place-items-center
+                      rounded-full
+                      bg-devpilot-plum
+                      text-xs font-semibold
+                      text-devpilot-sand
+                    ">
+              AI
+            </div>
+
+            <div class="
+                      min-w-0 max-w-[90%]
+                      flex-1
+                    ">
+              <div class="mb-1.5">
+                <span class="
+                          text-xs font-medium
+                          text-devpilot-text-muted
+                        ">
+                  DevPilot AI
+                </span>
+              </div>
+
+              <div class="
+                        rounded-2xl
+                        rounded-tl-md
+                        border
+                        border-devpilot-stone/20
+                        bg-devpilot-surface
+                        px-5 py-4
+                        shadow-sm
+                      ">
+                <!-- MARKDOWN -->
+                <div [innerHTML]="
+                          formatMarkdown(
+                            message.content
+                          )
+                        " class="
+                          ui-markdown
+                        " data-testid="assistant-markdown"></div>
+
+                <!-- SOURCES -->
+                @if (
+                message.sources &&
+                message.sources.length > 0
+                ) {
+                <section class="
+                            mt-5
+                            border-t
+                            border-devpilot-stone/20
+                            pt-4
+                          ">
+                  <header class="
+                              mb-3 flex
+                              items-center
+                              justify-between
+                              gap-3
+                            ">
+                    <h3 class="
+                                text-xs font-semibold
+                                uppercase tracking-wider
+                                text-devpilot-text-muted
+                              ">
+                      Fuentes
+                    </h3>
+
+                    <span class="
+                                ui-badge
+                                bg-devpilot-mist
+                                text-devpilot-plum
+                              ">
+                      {{ message.sources.length }}
+                    </span>
+                  </header>
+
+                  <div data-testid="source-card" class="space-y-3">
+                    @for (
+                    source of message.sources;
+                    track source.path +
+                    source.chunkIndex
+                    ) {
+                    <article class="
+                                  overflow-hidden
+                                  rounded-xl border
+                                  border-devpilot-stone/20
+                                  bg-devpilot-surface-muted
+                                ">
+                      <header class="
+                                    flex flex-col gap-1
+                                    border-b
+                                    border-devpilot-stone/20
+                                    px-3 py-2.5
+
+                                    sm:flex-row
+                                    sm:items-center
+                                    sm:justify-between
+                                  ">
+                        <p class="
+                                      break-all
+                                      text-xs font-medium
+                                      leading-5
+                                      text-devpilot-ink
+                                    ">
+                          {{ source.path }}
+                        </p>
+
+                        <p class="
+                                      shrink-0
+                                      text-xs font-medium
+                                      leading-5
+                                      text-devpilot-text-muted
+                                    ">
+                          {{ source.language }}
+                          · Chunk
+                          {{ source.chunkIndex }}
+                        </p>
+                      </header>
+
+                      <pre class="
+                                    max-h-52 overflow-auto
+                                    bg-devpilot-ink
+                                    p-3
+                                    text-xs font-normal
+                                    leading-5
+                                    text-devpilot-sand
+                                  "><code>{{ source.excerpt }}</code></pre>
+                    </article>
+                    }
+                  </div>
+                </section>
+                }
+              </div>
+            </div>
+          </article>
+          }
+          }
+
+          <!-- SENDING -->
+          @if (sending()) {
+          <article class="
+                  flex items-start
+                  gap-3
+                ">
+            <div class="
+                    grid size-9 shrink-0
+                    place-items-center
+                    rounded-full
+                    bg-devpilot-plum
+                    text-xs font-semibold
+                    text-devpilot-sand
+                  ">
+              AI
+            </div>
+
+            <div>
+              <span class="
+                      mb-1.5 block
+                      text-xs font-medium
+                      text-devpilot-text-muted
+                    ">
+                DevPilot AI
+              </span>
+
+              <div class="
+                      flex items-center gap-3
+                      rounded-2xl
+                      rounded-tl-md
+                      border
+                      border-devpilot-stone/20
+                      bg-devpilot-surface
+                      px-4 py-3
+                      shadow-sm
+                    ">
+                <div class="
+                        flex items-center
+                        gap-1
+                      " aria-hidden="true">
+                  <span class="
+                          size-2 animate-bounce
+                          rounded-full
+                          bg-devpilot-plum
+                        "></span>
+
+                  <span class="
+                          size-2 animate-bounce
+                          rounded-full
+                          bg-devpilot-plum
+                          [animation-delay:150ms]
+                        "></span>
+
+                  <span class="
+                          size-2 animate-bounce
+                          rounded-full
+                          bg-devpilot-plum
+                          [animation-delay:300ms]
+                        "></span>
+                </div>
+
+                <span class="
+                        text-sm font-medium
+                        text-devpilot-text-muted
+                      ">
+                  Analizando código...
+                </span>
+              </div>
+            </div>
+          </article>
+          }
+        </div>
+        }
+      </div>
+
+      <!-- COMPOSER -->
+      <form [formGroup]="chatForm" (ngSubmit)="sendMessage()" class="
+          border-t
+          border-devpilot-stone/20
+          bg-devpilot-surface
+          p-4 sm:p-5
+        ">
+        <div class="mx-auto max-w-4xl">
+          <div class="
+              rounded-2xl border
+              border-devpilot-stone/40
+              bg-white p-2
+              shadow-sm
+              transition
+              focus-within:border-devpilot-plum
+              focus-within:ring-4
+              focus-within:ring-devpilot-plum/10
+            ">
+            <textarea id="message" formControlName="message" rows="3" placeholder="Pregunta algo sobre el código..."
+              class="
+                block
+                max-h-48 min-h-24
+                w-full resize-y
+                border-0
+                bg-transparent
+                px-3 py-2
+                text-sm font-normal
+                leading-6
+                text-devpilot-ink
+                outline-none
+                placeholder:text-devpilot-stone
+              "></textarea>
+
+            <div class="
+                flex flex-col gap-3
+                border-t
+                border-devpilot-stone/20
+                px-2 pt-2
+
+                sm:flex-row
+                sm:items-center
+                sm:justify-between
+              ">
+              <span class="
+                  text-xs font-normal
+                  text-devpilot-text-muted
+                ">
+                DevPilot responde utilizando el código
+                indexado del proyecto.
+              </span>
+
+              <div class="
+                  flex items-center
+                  justify-between gap-3
+                  sm:justify-end
+                ">
+                <span [class.text-red-700]="
+                    chatForm.controls.message.value.length
+                    >= 4000
+                  " class="
+                    text-xs font-medium
+                    text-devpilot-text-muted
+                  ">
+                  {{
+                  chatForm.controls.message.value.length
+                  }}
+                  / 4000
+                </span>
+
+                <button type="submit" [disabled]="
+                    chatForm.invalid ||
+                    sending() ||
+                    loadingConversation()
+                  " class="
+                    ui-btn-primary
+                    min-w-28
+                  ">
+                  @if (sending()) {
+                  <span class="
+                        mr-2 size-4
+                        animate-spin
+                        rounded-full
+                        border-2
+                        border-devpilot-sand/40
+                        border-t-devpilot-sand
+                      "></span>
+
+                  Analizando...
+                  } @else {
+                  Enviar
+                  }
+                </button>
+              </div>
+            </div>
+          </div>
+
+          @if (
+          chatForm.controls.message.invalid &&
+          chatForm.controls.message.touched
+          ) {
+          <p class="ui-field-error">
+            @if (
+            chatForm.controls.message.hasError(
+            'required'
+            )
+            ) {
+            Introduce una pregunta.
+            } @else if (
+            chatForm.controls.message.hasError(
+            'maxlength'
+            )
+            ) {
+            La pregunta no puede superar
+            los 4000 caracteres.
+            } @else {
+            Introduce una pregunta válida.
+            }
+          </p>
+          }
+        </div>
+      </form>
+    </section>
+  </section>
+</section>
