@@ -1,0 +1,30 @@
+{
+  "metadata": {
+    "name": "DevPilot AI Multi-Repository Held-Out Evaluation",
+    "version": "1.0",
+    "description": "Suite held-out multi-repositorio utilizada para evaluar generalización después de cerrar el tuning sobre rag_eval.json."
+  },
+  "repositories": [
+    {
+      "key": "realworld-angular",
+      "name": "RealWorld Angular",
+      "source": "realworld-angular/realworld-angular",
+      "dataset": "evals/datasets/holdout/realworld-angular.json",
+      "commit_sha": "e73088a1a54b89554eeb70399325578b4f62b8ce"
+    },
+    {
+      "key": "pallets-click",
+      "name": "Pallets Click",
+      "source": "pallets/click",
+      "dataset": "evals/datasets/holdout/pallets-click.json",
+      "commit_sha": "6aabf099bfdd4c1e75fe8d0e0d4241372b988ab1"
+    },
+    {
+      "key": "sindresorhus-ky",
+      "name": "Ky",
+      "source": "sindresorhus/ky",
+      "dataset": "evals/datasets/holdout/sindresorhus-ky.json",
+      "commit_sha": "0d59458a0a58e1c3d7c6db0ab17ed5c7cd671e47"
+    }
+  ]
+}

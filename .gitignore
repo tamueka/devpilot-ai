@@ -134,3 +134,6 @@ playwright-report/
 *.tmp
 *.temp
 *.cache
+
+# Local evaluation project mappings
+backend/evals/datasets/holdout_projects.local.json

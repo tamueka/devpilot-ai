@@ -1,0 +1,89 @@
+{
+  "metadata": {
+    "name": "RealWorld Angular Held-Out Retrieval Evaluation",
+    "version": "1.0",
+    "description": "Held-out retrieval dataset para evaluar la generalización de DevPilot AI sobre un repositorio Angular externo no utilizado durante el tuning."
+  },
+  "cases": [
+    {
+      "id": "angular-routing-001",
+      "category": "routing",
+      "question": "¿En qué archivo se definen las rutas principales de la aplicación Angular?",
+      "expected_files": [
+        "src/app/app.routes.ts"
+      ]
+    },
+    {
+      "id": "angular-auth-001",
+      "category": "authentication",
+      "question": "¿Qué archivo implementa el guard de autenticación de la aplicación?",
+      "expected_files": [
+        "src/app/core/guards/auth/auth.guard.ts"
+      ]
+    },
+    {
+      "id": "angular-auth-002",
+      "category": "authorization",
+      "question": "¿Qué archivo implementa el guard utilizado para controlar el acceso según el rol del usuario?",
+      "expected_files": [
+        "src/app/core/guards/role/role.guard.ts"
+      ]
+    },
+    {
+      "id": "angular-http-001",
+      "category": "http",
+      "question": "¿Qué interceptor se encarga de gestionar la URL base de las peticiones HTTP?",
+      "expected_files": [
+        "src/app/core/interceptors/base-url.interceptor.ts"
+      ]
+    },
+    {
+      "id": "angular-http-002",
+      "category": "http",
+      "question": "¿Qué interceptor gestiona las credenciales utilizadas en las peticiones HTTP?",
+      "expected_files": [
+        "src/app/core/interceptors/credentials.interceptor.ts"
+      ]
+    },
+    {
+      "id": "angular-auth-003",
+      "category": "authentication",
+      "question": "¿Qué servicio central del core contiene la lógica relacionada con la autenticación?",
+      "expected_files": [
+        "src/app/core/services/auth.ts"
+      ]
+    },
+    {
+      "id": "angular-cart-001",
+      "category": "state-management",
+      "question": "¿Qué archivo mantiene el estado del carrito de compra?",
+      "expected_files": [
+        "src/app/features/cart/cart.store.ts"
+      ]
+    },
+    {
+      "id": "angular-checkout-001",
+      "category": "checkout",
+      "question": "¿Qué servicio coordina el flujo o wizard del proceso de checkout?",
+      "expected_files": [
+        "src/app/features/checkout/services/checkout-wizard.ts"
+      ]
+    },
+    {
+      "id": "angular-orders-001",
+      "category": "orders",
+      "question": "¿Qué servicio encapsula el acceso a la API relacionada con los pedidos?",
+      "expected_files": [
+        "src/app/features/orders/services/order-api.ts"
+      ]
+    },
+    {
+      "id": "angular-pizzerias-001",
+      "category": "pizzerias",
+      "question": "¿Qué servicio encapsula el acceso a la API relacionada con las pizzerías?",
+      "expected_files": [
+        "src/app/features/pizzerias/services/pizzeria-api.ts"
+      ]
+    }
+  ]
+}
