@@ -1,0 +1,89 @@
+{
+  "metadata": {
+    "name": "Pallets Click Held-Out Retrieval Evaluation",
+    "version": "1.0",
+    "description": "Held-out retrieval dataset para evaluar la generalización de DevPilot AI sobre el repositorio externo Pallets Click."
+  },
+  "cases": [
+    {
+      "id": "click-core-001",
+      "category": "core",
+      "question": "¿Qué archivo contiene la implementación principal de los comandos, grupos, parámetros y contexto de Click?",
+      "expected_files": [
+        "click-6aabf099bfdd4c1e75fe8d0e0d4241372b988ab1/src/click/core.py"
+      ]
+    },
+    {
+      "id": "click-decorators-001",
+      "category": "decorators",
+      "question": "¿Qué archivo implementa los decoradores utilizados para declarar comandos, grupos, opciones y argumentos en Click?",
+      "expected_files": [
+        "click-6aabf099bfdd4c1e75fe8d0e0d4241372b988ab1/src/click/decorators.py"
+      ]
+    },
+    {
+      "id": "click-exceptions-001",
+      "category": "exceptions",
+      "question": "¿Qué archivo contiene las excepciones propias utilizadas por Click para representar errores de línea de comandos?",
+      "expected_files": [
+        "click-6aabf099bfdd4c1e75fe8d0e0d4241372b988ab1/src/click/exceptions.py"
+      ]
+    },
+    {
+      "id": "click-parser-001",
+      "category": "parsing",
+      "question": "¿Qué archivo contiene la lógica del parser utilizado para procesar los argumentos de línea de comandos?",
+      "expected_files": [
+        "click-6aabf099bfdd4c1e75fe8d0e0d4241372b988ab1/src/click/parser.py"
+      ]
+    },
+    {
+      "id": "click-completion-001",
+      "category": "shell-completion",
+      "question": "¿Qué archivo implementa el soporte de autocompletado de comandos para diferentes shells?",
+      "expected_files": [
+        "click-6aabf099bfdd4c1e75fe8d0e0d4241372b988ab1/src/click/shell_completion.py"
+      ]
+    },
+    {
+      "id": "click-termui-001",
+      "category": "terminal-ui",
+      "question": "¿Qué archivo expone las utilidades de interfaz de terminal de Click, como prompts y otras interacciones con el usuario?",
+      "expected_files": [
+        "click-6aabf099bfdd4c1e75fe8d0e0d4241372b988ab1/src/click/termui.py"
+      ]
+    },
+    {
+      "id": "click-testing-001",
+      "category": "testing",
+      "question": "¿Qué archivo proporciona las utilidades de Click para probar aplicaciones de línea de comandos?",
+      "expected_files": [
+        "click-6aabf099bfdd4c1e75fe8d0e0d4241372b988ab1/src/click/testing.py"
+      ]
+    },
+    {
+      "id": "click-types-001",
+      "category": "parameter-types",
+      "question": "¿Qué archivo implementa los tipos de parámetros utilizados para convertir y validar valores recibidos desde la línea de comandos?",
+      "expected_files": [
+        "click-6aabf099bfdd4c1e75fe8d0e0d4241372b988ab1/src/click/types.py"
+      ]
+    },
+    {
+      "id": "click-formatting-001",
+      "category": "formatting",
+      "question": "¿Qué archivo contiene la lógica utilizada por Click para formatear la salida y los textos de ayuda?",
+      "expected_files": [
+        "click-6aabf099bfdd4c1e75fe8d0e0d4241372b988ab1/src/click/formatting.py"
+      ]
+    },
+    {
+      "id": "click-utils-001",
+      "category": "utilities",
+      "question": "¿Qué archivo contiene utilidades generales de Click relacionadas con entrada, salida, ficheros y otras operaciones auxiliares?",
+      "expected_files": [
+        "click-6aabf099bfdd4c1e75fe8d0e0d4241372b988ab1/src/click/utils.py"
+      ]
+    }
+  ]
+}

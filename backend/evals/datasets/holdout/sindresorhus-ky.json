@@ -1,0 +1,89 @@
+{
+  "metadata": {
+    "name": "Ky Held-Out Retrieval Evaluation",
+    "version": "1.0",
+    "description": "Held-out retrieval dataset para evaluar la generalización de DevPilot AI sobre el repositorio externo sindresorhus/ky."
+  },
+  "cases": [
+    {
+      "id": "ky-core-001",
+      "category": "core",
+      "question": "¿Qué archivo contiene la implementación principal de Ky encargada de gestionar las peticiones HTTP?",
+      "expected_files": [
+        "ky-0d59458a0a58e1c3d7c6db0ab17ed5c7cd671e47/source/core/Ky.ts"
+      ]
+    },
+    {
+      "id": "ky-retry-001",
+      "category": "retry",
+      "question": "¿Qué archivo contiene la lógica relacionada con el cálculo o temporización de los reintentos de las peticiones?",
+      "expected_files": [
+        "ky-0d59458a0a58e1c3d7c6db0ab17ed5c7cd671e47/source/core/retry-timing.ts"
+      ]
+    },
+    {
+      "id": "ky-errors-001",
+      "category": "errors",
+      "question": "¿Qué archivo implementa el error específico que representa una respuesta HTTP fallida?",
+      "expected_files": [
+        "ky-0d59458a0a58e1c3d7c6db0ab17ed5c7cd671e47/source/errors/HTTPError.ts"
+      ]
+    },
+    {
+      "id": "ky-errors-002",
+      "category": "errors",
+      "question": "¿Qué archivo implementa el error utilizado para representar fallos de red?",
+      "expected_files": [
+        "ky-0d59458a0a58e1c3d7c6db0ab17ed5c7cd671e47/source/errors/NetworkError.ts"
+      ]
+    },
+    {
+      "id": "ky-errors-003",
+      "category": "errors",
+      "question": "¿Qué archivo implementa el error utilizado cuando una petición supera el tiempo máximo permitido?",
+      "expected_files": [
+        "ky-0d59458a0a58e1c3d7c6db0ab17ed5c7cd671e47/source/errors/TimeoutError.ts"
+      ]
+    },
+    {
+      "id": "ky-hooks-001",
+      "category": "hooks",
+      "question": "¿Qué archivo define los tipos relacionados con los hooks que permiten intervenir en el ciclo de vida de una petición?",
+      "expected_files": [
+        "ky-0d59458a0a58e1c3d7c6db0ab17ed5c7cd671e47/source/types/hooks.ts"
+      ]
+    },
+    {
+      "id": "ky-options-001",
+      "category": "configuration",
+      "question": "¿Qué archivo define los tipos de las opciones de configuración aceptadas por Ky?",
+      "expected_files": [
+        "ky-0d59458a0a58e1c3d7c6db0ab17ed5c7cd671e47/source/types/options.ts"
+      ]
+    },
+    {
+      "id": "ky-response-001",
+      "category": "response",
+      "question": "¿Qué archivo define el tipo ResponsePromise utilizado para representar las respuestas asíncronas de Ky?",
+      "expected_files": [
+        "ky-0d59458a0a58e1c3d7c6db0ab17ed5c7cd671e47/source/types/ResponsePromise.ts"
+      ]
+    },
+    {
+      "id": "ky-body-001",
+      "category": "request-body",
+      "question": "¿Qué archivo contiene utilidades relacionadas con el cuerpo de las peticiones HTTP?",
+      "expected_files": [
+        "ky-0d59458a0a58e1c3d7c6db0ab17ed5c7cd671e47/source/utils/body.ts"
+      ]
+    },
+    {
+      "id": "ky-normalize-001",
+      "category": "normalization",
+      "question": "¿Qué archivo contiene las utilidades utilizadas para normalizar datos u opciones antes de procesar una petición?",
+      "expected_files": [
+        "ky-0d59458a0a58e1c3d7c6db0ab17ed5c7cd671e47/source/utils/normalize.ts"
+      ]
+    }
+  ]
+}
