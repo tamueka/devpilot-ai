@@ -1,0 +1,88 @@
+{
+  "metadata": {
+    "name": "Axios Independent Retrieval Validation",
+    "version": "1.0"
+  },
+  "cases": [
+    {
+      "id": "axios-adapter-001",
+      "category": "adapter",
+      "question": "¿Dónde se selecciona el adaptador HTTP que utilizará Axios?",
+      "expected_files": [
+        "lib/adapters/adapters.js"
+      ]
+    },
+    {
+      "id": "axios-fetch-001",
+      "category": "adapter",
+      "question": "¿Qué archivo implementa el adaptador basado en Fetch?",
+      "expected_files": [
+        "lib/adapters/fetch.js"
+      ]
+    },
+    {
+      "id": "axios-node-http-001",
+      "category": "adapter",
+      "question": "¿Dónde está implementado el adaptador HTTP para Node.js?",
+      "expected_files": [
+        "lib/adapters/http.js"
+      ]
+    },
+    {
+      "id": "axios-core-001",
+      "category": "core",
+      "question": "¿Qué archivo contiene la clase principal Axios que ejecuta las peticiones?",
+      "expected_files": [
+        "lib/core/Axios.js"
+      ]
+    },
+    {
+      "id": "axios-error-001",
+      "category": "errors",
+      "question": "¿Dónde se define el tipo de error principal de Axios y su serialización?",
+      "expected_files": [
+        "lib/core/AxiosError.js"
+      ]
+    },
+    {
+      "id": "axios-headers-001",
+      "category": "headers",
+      "question": "¿Qué archivo implementa la clase que normaliza y gestiona cabeceras HTTP?",
+      "expected_files": [
+        "lib/core/AxiosHeaders.js"
+      ]
+    },
+    {
+      "id": "axios-cancel-001",
+      "category": "cancellation",
+      "question": "¿Dónde se implementan los tokens de cancelación de peticiones?",
+      "expected_files": [
+        "lib/cancel/CancelToken.js"
+      ]
+    },
+    {
+      "id": "axios-merge-config-001",
+      "category": "configuration",
+      "question": "¿Qué archivo combina la configuración por defecto con la configuración de una petición?",
+      "expected_files": [
+        "lib/core/mergeConfig.js"
+      ]
+    },
+    {
+      "id": "axios-build-url-001",
+      "category": "url",
+      "question": "¿Dónde se construye una URL añadiendo parámetros de consulta?",
+      "expected_files": [
+        "lib/helpers/buildURL.js"
+      ]
+    },
+    {
+      "id": "axios-proxy-001",
+      "category": "proxy",
+      "question": "¿Qué archivo decide si una petición debe ignorar el proxy según la configuración NO_PROXY?",
+      "expected_files": [
+        "lib/helpers/shouldBypassProxy.js"
+      ]
+    }
+  ]
+}

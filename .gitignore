@@ -137,3 +137,6 @@ playwright-report/
 
 # Local evaluation project mappings
 backend/evals/datasets/holdout_projects.local.json
+
+# Local independent validation project mappings
+backend/evals/datasets/independent_validation_projects.local.json

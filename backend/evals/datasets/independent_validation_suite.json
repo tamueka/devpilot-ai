@@ -1,0 +1,22 @@
+{
+    "repositories": [
+        {
+            "key": "commitizen",
+            "dataset": "evals/datasets/independent/commitizen.json",
+            "source_repository": "commitizen-tools/commitizen",
+            "commit_sha": "f0c7c6b99024b800ad632f3612f7a93084dedf64"
+        },
+        {
+            "key": "axios",
+            "dataset": "evals/datasets/independent/axios.json",
+            "source_repository": "axios/axios",
+            "commit_sha": "56a5f1acdc41965f464eb59bec6cc828113ba546"
+        },
+        {
+            "key": "pinia",
+            "dataset": "evals/datasets/independent/pinia.json",
+            "source_repository": "vuejs/pinia",
+            "commit_sha": "f4e0cb7a8193f564c27f6527b3f954e114a7534c"
+        }
+    ]
+}

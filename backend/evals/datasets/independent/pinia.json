@@ -1,0 +1,88 @@
+{
+  "metadata": {
+    "name": "Pinia Independent Retrieval Validation",
+    "version": "1.0"
+  },
+  "cases": [
+    {
+      "id": "pinia-create-001",
+      "category": "core",
+      "question": "¿Dónde se crea una instancia de Pinia y se implementa su eliminación?",
+      "expected_files": [
+        "packages/pinia/src/createPinia.ts"
+      ]
+    },
+    {
+      "id": "pinia-root-001",
+      "category": "core",
+      "question": "¿Qué archivo mantiene la instancia activa de Pinia y define el contrato raíz Pinia?",
+      "expected_files": [
+        "packages/pinia/src/rootStore.ts"
+      ]
+    },
+    {
+      "id": "pinia-define-store-001",
+      "category": "store",
+      "question": "¿Dónde se implementa defineStore y la creación interna de stores?",
+      "expected_files": [
+        "packages/pinia/src/store.ts"
+      ]
+    },
+    {
+      "id": "pinia-refs-001",
+      "category": "reactivity",
+      "question": "¿Qué archivo convierte las propiedades de un store en refs con storeToRefs?",
+      "expected_files": [
+        "packages/pinia/src/storeToRefs.ts"
+      ]
+    },
+    {
+      "id": "pinia-map-helpers-001",
+      "category": "helpers",
+      "question": "¿Dónde se implementan mapState, mapActions y mapWritableState?",
+      "expected_files": [
+        "packages/pinia/src/mapHelpers.ts"
+      ]
+    },
+    {
+      "id": "pinia-hmr-001",
+      "category": "hmr",
+      "question": "¿Qué archivo contiene la lógica de actualización HMR de stores?",
+      "expected_files": [
+        "packages/pinia/src/hmr.ts"
+      ]
+    },
+    {
+      "id": "pinia-subscriptions-001",
+      "category": "subscriptions",
+      "question": "¿Dónde se añaden y disparan las suscripciones internas de Pinia?",
+      "expected_files": [
+        "packages/pinia/src/subscriptions.ts"
+      ]
+    },
+    {
+      "id": "pinia-devtools-plugin-001",
+      "category": "devtools",
+      "question": "¿Qué archivo registra Pinia en Vue Devtools y gestiona su plugin de desarrollo?",
+      "expected_files": [
+        "packages/pinia/src/devtools/plugin.ts"
+      ]
+    },
+    {
+      "id": "pinia-devtools-actions-001",
+      "category": "devtools",
+      "question": "¿Dónde se implementan las acciones de copiar, pegar, guardar y abrir el estado desde Devtools?",
+      "expected_files": [
+        "packages/pinia/src/devtools/actions.ts"
+      ]
+    },
+    {
+      "id": "pinia-devtools-formatting-001",
+      "category": "devtools",
+      "question": "¿Qué archivo formatea stores, estado y eventos para mostrarlos en el inspector de Devtools?",
+      "expected_files": [
+        "packages/pinia/src/devtools/formatting.ts"
+      ]
+    }
+  ]
+}
