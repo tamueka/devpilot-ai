@@ -1,0 +1,128 @@
+{
+    "name": "DevPilot AI Retrieval Evaluation",
+    "version": "1.0",
+    "description": "Dataset inicial para evaluar la calidad del retrieval semántico de DevPilot AI antes de introducir búsqueda híbrida o reranking.",
+    "cases": [
+        {
+            "id": "auth-001",
+            "category": "authentication",
+            "question": "¿Cómo se generan y validan los tokens JWT en el backend?",
+            "expected_files": [
+                "backend/app/security/auth.py"
+            ]
+        },
+        {
+            "id": "auth-002",
+            "category": "authentication",
+            "question": "¿Cómo obtiene el backend el usuario autenticado a partir del token Bearer?",
+            "expected_files": [
+                "backend/app/security/current_user.py"
+            ]
+        },
+        {
+            "id": "security-001",
+            "category": "security",
+            "question": "¿Cómo evita DevPilot AI que un usuario acceda a proyectos que pertenecen a otro usuario?",
+            "expected_files": [
+                "backend/app/security/resource_access.py"
+            ]
+        },
+        {
+            "id": "archive-001",
+            "category": "project-import",
+            "question": "¿Cómo se protege la extracción de archivos ZIP y RAR frente a path traversal y archivos peligrosos?",
+            "expected_files": [
+                "backend/app/services/project_archive_service.py"
+            ]
+        },
+        {
+            "id": "embedding-001",
+            "category": "rag",
+            "question": "¿Dónde se generan los embeddings de los chunks del proyecto?",
+            "expected_files": [
+                "backend/app/services/project_embedding_service.py"
+            ]
+        },
+        {
+            "id": "retrieval-001",
+            "category": "rag",
+            "question": "¿Cómo realiza DevPilot AI la búsqueda semántica de los fragmentos más relevantes?",
+            "expected_files": [
+                "backend/app/services/semantic_search_service.py"
+            ]
+        },
+        {
+            "id": "rag-001",
+            "category": "rag",
+            "question": "¿Cómo se construye el contexto que se envía al modelo para responder una pregunta?",
+            "expected_files": [
+                "backend/app/services/rag_service.py"
+            ]
+        },
+        {
+            "id": "rag-002",
+            "category": "rag",
+            "question": "¿Cómo utiliza DevPilot AI el historial de conversación cuando genera una respuesta?",
+            "expected_files": [
+                "backend/app/services/rag_service.py",
+                "backend/app/services/conversation_service.py"
+            ]
+        },
+        {
+            "id": "readme-001",
+            "category": "generation",
+            "question": "¿Qué servicio se encarga de generar automáticamente el README de un proyecto?",
+            "expected_files": [
+                "backend/app/services/readme_service.py"
+            ]
+        },
+        {
+            "id": "tests-001",
+            "category": "generation",
+            "question": "¿Cómo se generan tests unitarios a partir del código de un archivo del proyecto?",
+            "expected_files": [
+                "backend/app/services/unit_test_service.py"
+            ]
+        },
+        {
+            "id": "frontend-auth-001",
+            "category": "frontend",
+            "question": "¿Dónde guarda el frontend el token de autenticación?",
+            "expected_files": [
+                "frontend/devpilot-frontend/src/app/core/auth/infrastructure/storage/auth-token.storage.ts"
+            ]
+        },
+        {
+            "id": "frontend-auth-002",
+            "category": "frontend",
+            "question": "¿Cómo añade Angular el token JWT a las peticiones HTTP?",
+            "expected_files": [
+                "frontend/devpilot-frontend/src/app/core/auth/infrastructure/interceptors/auth.interceptor.ts"
+            ]
+        },
+        {
+            "id": "frontend-auth-003",
+            "category": "frontend",
+            "question": "¿Qué ocurre en el frontend cuando una petición devuelve un error 401?",
+            "expected_files": [
+                "frontend/devpilot-frontend/src/app/core/auth/infrastructure/interceptors/auth-error.interceptor.ts"
+            ]
+        },
+        {
+            "id": "frontend-auth-004",
+            "category": "frontend",
+            "question": "¿Qué clase mantiene el estado de autenticación del usuario en Angular?",
+            "expected_files": [
+                "frontend/devpilot-frontend/src/app/core/auth/application/stores/auth.store.ts"
+            ]
+        },
+        {
+            "id": "frontend-chat-001",
+            "category": "frontend",
+            "question": "¿Qué repositorio del frontend realiza las llamadas HTTP relacionadas con el chat?",
+            "expected_files": [
+                "frontend/devpilot-frontend/src/app/core/infrastructure/chat/chat-api.repository.ts"
+            ]
+        }
+    ]
+}

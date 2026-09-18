@@ -1,0 +1,202 @@
+
+==============================================================================================================
+DEVPILOT AI - PATH-AWARE CANDIDATE RECALL
+==============================================================================================================
+Vector chunks:     100
+Vector documents:  20
+Lexical documents: 20
+Path documents:    20
+
+==============================================================================================================
+REPOSITORY: realworld-angular
+==============================================================================================================
+Dataset: RealWorld Angular Held-Out Retrieval Evaluation v1.0
+
+OK angular-routing-001
+  Vector rank:  1
+  Lexical rank: None
+  Path rank:    None
+
+OK angular-auth-001
+  Vector rank:  1
+  Lexical rank: 2
+  Path rank:    2
+
+OK angular-auth-002
+  Vector rank:  1
+  Lexical rank: 2
+  Path rank:    2
+
+OK angular-http-001
+  Vector rank:  1
+  Lexical rank: 3
+  Path rank:    2
+
+OK angular-http-002
+  Vector rank:  1
+  Lexical rank: 3
+  Path rank:    4
+
+OK angular-auth-003
+  Vector rank:  1
+  Lexical rank: 6
+  Path rank:    2
+
+OK angular-cart-001
+  Vector rank:  3
+  Lexical rank: 14
+  Path rank:    2
+
+OK angular-checkout-001
+  Vector rank:  1
+  Lexical rank: 9
+  Path rank:    2
+
+OK angular-orders-001
+  Vector rank:  1
+  Lexical rank: 6
+  Path rank:    3
+
+OK angular-pizzerias-001
+  Vector rank:  1
+  Lexical rank: 2
+  Path rank:    3
+
+Repository coverage (all sources): 10/10
+
+==============================================================================================================
+REPOSITORY: pallets-click
+==============================================================================================================
+Dataset: Pallets Click Held-Out Retrieval Evaluation v1.0
+
+OK click-core-001
+  Vector rank:  None
+  Lexical rank: None
+  Path rank:    15
+
+OK click-decorators-001
+  Vector rank:  None
+  Lexical rank: None
+  Path rank:    2
+
+OK click-exceptions-001
+  Vector rank:  2
+  Lexical rank: None
+  Path rank:    14
+
+OK click-parser-001
+  Vector rank:  4
+  Lexical rank: 2
+  Path rank:    3
+
+OK click-completion-001
+  Vector rank:  3
+  Lexical rank: 13
+  Path rank:    1
+
+OK click-termui-001
+  Vector rank:  None
+  Lexical rank: None
+  Path rank:    3
+
+OK click-testing-001
+  Vector rank:  None
+  Lexical rank: None
+  Path rank:    2
+
+OK click-types-001
+  Vector rank:  2
+  Lexical rank: None
+  Path rank:    None
+
+OK click-formatting-001
+  Vector rank:  None
+  Lexical rank: None
+  Path rank:    2
+
+OK click-utils-001
+  Vector rank:  None
+  Lexical rank: None
+  Path rank:    2
+
+Repository coverage (all sources): 10/10
+
+==============================================================================================================
+REPOSITORY: sindresorhus-ky
+==============================================================================================================
+Dataset: Ky Held-Out Retrieval Evaluation v1.0
+
+OK ky-core-001
+  Vector rank:  None
+  Lexical rank: 1
+  Path rank:    3
+
+OK ky-retry-001
+  Vector rank:  13
+  Lexical rank: None
+  Path rank:    1
+
+OK ky-errors-001
+  Vector rank:  2
+  Lexical rank: 3
+  Path rank:    1
+
+OK ky-errors-002
+  Vector rank:  2
+  Lexical rank: 18
+  Path rank:    1
+
+OK ky-errors-003
+  Vector rank:  4
+  Lexical rank: 17
+  Path rank:    1
+
+OK ky-hooks-001
+  Vector rank:  4
+  Lexical rank: 4
+  Path rank:    2
+
+OK ky-options-001
+  Vector rank:  3
+  Lexical rank: 10
+  Path rank:    1
+
+OK ky-response-001
+  Vector rank:  2
+  Lexical rank: 10
+  Path rank:    2
+
+OK ky-body-001
+  Vector rank:  7
+  Lexical rank: None
+  Path rank:    2
+
+OK ky-normalize-001
+  Vector rank:  3
+  Lexical rank: None
+  Path rank:    6
+
+Repository coverage (all sources): 10/10
+
+
+==============================================================================================================
+GLOBAL PATH-AWARE CANDIDATE SUMMARY
+==============================================================================================================
+Cases:                         30
+
+Vector Recall@20:              76.67%
+Lexical Recall@20:             60.00%
+Path Recall@20:                93.33%
+
+Vector + Lexical Recall:       80.00%
+Vector + Lexical + Path:       100.00%
+
+Full coverage
+--------------------------------------------------------------------------------------------------------------
+Vector:                        23/30
+Lexical:                       18/30
+Path:                          28/30
+Vector + Lexical:              24/30
+Vector + Lexical + Path:       30/30
+
+Remaining failures:            0
