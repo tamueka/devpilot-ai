@@ -1,0 +1,874 @@
+
+==============================================================================================================
+DEVPILOT AI - RETRIEVAL V2 INDEPENDENT VALIDATION
+==============================================================================================================
+
+Frozen benchmark. No tuning is performed from these results.
+
+
+==============================================================================================================
+REPOSITORY: commitizen
+==============================================================================================================
+Source:  commitizen-tools/commitizen
+Commit:  f0c7c6b99024b800ad632f3612f7a93084dedf64
+Project: 6bd90514-584f-4cb8-8b61-b2775780df2e
+Dataset: C:\Users\tamue\Desktop\TFM_FOUNDERZ\devpilot-ai\backend\evals\datasets\independent\commitizen.json
+
+--------------------------------------------------------------------------------------------------------------
+[1/10] MISS commitizen-bump-001 | versioning
+--------------------------------------------------------------------------------------------------------------
+Question: ┐D¾nde se determina quÚ incremento de versi¾n debe aplicarse?
+
+Expected:
+  - commitizen/bump.py
+
+Retrieved:
+    1. docs/commands/bump.md
+    2. commitizen/commands/version.py
+    3. commitizen/version_increment.py
+    4. commitizen/version_schemes.py
+    5. tests/test_version_scheme_semver.py
+
+Hit@1:    0
+Hit@3:    0
+Hit@5:    0
+Recall@5: 0.000
+RR:       0.000
+Latency:  5739.16 ms
+
+--------------------------------------------------------------------------------------------------------------
+[2/10] OK commitizen-changelog-001 | changelog
+--------------------------------------------------------------------------------------------------------------
+Question: ┐QuÚ archivo construye el ßrbol del changelog a partir de los commits?
+
+Expected:
+  - commitizen/changelog.py
+
+Retrieved:
+  * 1. commitizen/changelog.py
+    2. commitizen/commands/changelog.py
+    3. tests/test_changelog.py
+    4. tests/commands/test_changelog_command.py
+    5. docs/commands/changelog.md
+
+Hit@1:    1
+Hit@3:    1
+Hit@5:    1
+Recall@5: 1.000
+RR:       1.000
+Latency:  3133.95 ms
+
+--------------------------------------------------------------------------------------------------------------
+[3/10] MISS commitizen-config-001 | configuration
+--------------------------------------------------------------------------------------------------------------
+Question: ┐D¾nde se crea la configuraci¾n correcta seg·n el tipo de archivo de configuraci¾n?
+
+Expected:
+  - commitizen/config/factory.py
+
+Retrieved:
+    1. commitizen/commands/init.py
+    2. commitizen/config/__init__.py
+    3. commitizen/config/base_config.py
+    4. docs/config/configuration_file.md
+    5. docs/tutorials/github_actions.md
+
+Hit@1:    0
+Hit@3:    0
+Hit@5:    0
+Recall@5: 0.000
+RR:       0.000
+Latency:  5364.19 ms
+
+--------------------------------------------------------------------------------------------------------------
+[4/10] MISS commitizen-plugins-001 | plugins
+--------------------------------------------------------------------------------------------------------------
+Question: ┐QuÚ archivo descubre los plugins de Commitizen?
+
+Expected:
+  - commitizen/cz/__init__.py
+
+Retrieved:
+    1. commitizen/providers/__init__.py
+    2. commitizen/commands/bump.py
+    3. docs/third-party-plugins/about.md
+    4. docs/README.md
+    5. mkdocs.yml
+
+Hit@1:    0
+Hit@3:    0
+Hit@5:    0
+Recall@5: 0.000
+RR:       0.000
+Latency:  3087.35 ms
+
+--------------------------------------------------------------------------------------------------------------
+[5/10] OK commitizen-conventional-001 | commits
+--------------------------------------------------------------------------------------------------------------
+Question: ┐D¾nde estß implementado el soporte para Conventional Commits?
+
+Expected:
+  - commitizen/cz/conventional_commits/conventional_commits.py
+
+Retrieved:
+  * 1. commitizen/cz/conventional_commits/conventional_commits.py
+    2. commitizen/cz/conventional_commits/__init__.py
+    3. tests/test_cz_conventional_commits.py
+    4. docs/tutorials/writing_commits.md
+    5. docs/README.md
+
+Hit@1:    1
+Hit@3:    1
+Hit@5:    1
+Recall@5: 1.000
+RR:       1.000
+Latency:  3058.10 ms
+
+--------------------------------------------------------------------------------------------------------------
+[6/10] OK commitizen-git-001 | git
+--------------------------------------------------------------------------------------------------------------
+Question: ┐QuÚ m¾dulo obtiene commits y tags e interact·a con el repositorio Git?
+
+Expected:
+  - commitizen/git.py
+
+Retrieved:
+  * 1. commitizen/git.py
+    2. tests/test_git.py
+    3. commitizen/changelog.py
+    4. commitizen/tags.py
+    5. tests/test_changelog.py
+
+Hit@1:    1
+Hit@3:    1
+Hit@5:    1
+Recall@5: 1.000
+RR:       1.000
+Latency:  3839.64 ms
+
+--------------------------------------------------------------------------------------------------------------
+[7/10] OK commitizen-command-001 | process
+--------------------------------------------------------------------------------------------------------------
+Question: ┐D¾nde se ejecutan comandos externos y shells del sistema?
+
+Expected:
+  - commitizen/cmd.py
+
+Retrieved:
+  * 1. commitizen/cmd.py
+    2. scripts/gen_cli_help_screenshots.py
+    3. commitizen/commands/commit.py
+    4. tests/test_cmd.py
+    5. tests/test_git.py
+
+Hit@1:    1
+Hit@3:    1
+Hit@5:    1
+Recall@5: 1.000
+RR:       1.000
+Latency:  2643.20 ms
+
+--------------------------------------------------------------------------------------------------------------
+[8/10] OK commitizen-provider-001 | version-provider
+--------------------------------------------------------------------------------------------------------------
+Question: ┐QuÚ archivo selecciona el proveedor de versi¾n configurado?
+
+Expected:
+  - commitizen/providers/__init__.py
+
+Retrieved:
+  * 1. commitizen/providers/__init__.py
+    2. docs/config/version_provider.md
+    3. commitizen/commands/init.py
+    4. commitizen/commands/version.py
+    5. docs/config/bump.md
+
+Hit@1:    1
+Hit@3:    1
+Hit@5:    1
+Recall@5: 1.000
+RR:       1.000
+Latency:  6458.53 ms
+
+--------------------------------------------------------------------------------------------------------------
+[9/10] OK commitizen-npm-provider-001 | version-provider
+--------------------------------------------------------------------------------------------------------------
+Question: ┐D¾nde estß implementado el proveedor de versiones para proyectos npm?
+
+Expected:
+  - commitizen/providers/npm_provider.py
+
+Retrieved:
+  * 1. commitizen/providers/npm_provider.py
+    2. tests/providers/test_npm_provider.py
+    3. docs/config/version_provider.md
+    4. commitizen/project_info.py
+    5. tests/test_project_info.py
+
+Hit@1:    1
+Hit@3:    1
+Hit@5:    1
+Recall@5: 1.000
+RR:       1.000
+Latency:  2683.71 ms
+
+--------------------------------------------------------------------------------------------------------------
+[10/10] OK commitizen-version-scheme-001 | versioning
+--------------------------------------------------------------------------------------------------------------
+Question: ┐QuÚ archivo contiene las implementaciones de los esquemas PEP 440, SemVer y SemVer2?
+
+Expected:
+  - commitizen/version_schemes.py
+
+Retrieved:
+  * 1. commitizen/version_schemes.py
+    2. tests/test_version_scheme_pep440.py
+    3. tests/test_version_scheme_semver.py
+    4. tests/test_version_scheme_semver2.py
+    5. docs/commands/bump.md
+
+Hit@1:    1
+Hit@3:    1
+Hit@5:    1
+Recall@5: 1.000
+RR:       1.000
+Latency:  3108.19 ms
+
+--------------------------------------------------------------------------------------------------------------
+REPOSITORY SUMMARY
+--------------------------------------------------------------------------------------------------------------
+Cases:               10
+Hit@1:               70.00%
+Hit@3:               70.00%
+Hit@5:               70.00%
+Recall@5:            70.00%
+MRR:                 0.700
+Unique docs@5:       5.00
+Documentation ratio: 24.00%
+Code ratio:          76.00%
+Avg latency:         3911.60 ms
+
+
+==============================================================================================================
+REPOSITORY: axios
+==============================================================================================================
+Source:  axios/axios
+Commit:  56a5f1acdc41965f464eb59bec6cc828113ba546
+Project: b83d0613-249e-4a52-9204-4555bf0e6adf
+Dataset: C:\Users\tamue\Desktop\TFM_FOUNDERZ\devpilot-ai\backend\evals\datasets\independent\axios.json
+
+--------------------------------------------------------------------------------------------------------------
+[1/10] MISS axios-adapter-001 | adapter
+--------------------------------------------------------------------------------------------------------------
+Question: ┐D¾nde se selecciona el adaptador HTTP que utilizarß Axios?
+
+Expected:
+  - lib/adapters/adapters.js
+
+Retrieved:
+    1. docs/es/pages/advanced/adapters.md
+    2. lib/core/Axios.js
+    3. docs/es/pages/advanced/request-config.md
+    4. docs/fr/pages/advanced/adapters.md
+    5. lib/axios.js
+
+Hit@1:    0
+Hit@3:    0
+Hit@5:    0
+Recall@5: 0.000
+RR:       0.000
+Latency:  6737.68 ms
+
+--------------------------------------------------------------------------------------------------------------
+[2/10] OK axios-fetch-001 | adapter
+--------------------------------------------------------------------------------------------------------------
+Question: ┐QuÚ archivo implementa el adaptador basado en Fetch?
+
+Expected:
+  - lib/adapters/fetch.js
+
+Retrieved:
+  * 1. lib/adapters/fetch.js
+    2. tests/unit/adapters/fetch.test.js
+    3. tests/browser/fetchCache.browser.test.js
+    4. docs/es/pages/advanced/fetch-adapter.md
+    5. docs/pages/advanced/fetch-adapter.md
+
+Hit@1:    1
+Hit@3:    1
+Hit@5:    1
+Recall@5: 1.000
+RR:       1.000
+Latency:  2857.70 ms
+
+--------------------------------------------------------------------------------------------------------------
+[3/10] OK axios-node-http-001 | adapter
+--------------------------------------------------------------------------------------------------------------
+Question: ┐D¾nde estß implementado el adaptador HTTP para Node.js?
+
+Expected:
+  - lib/adapters/http.js
+
+Retrieved:
+  * 1. lib/adapters/http.js
+    2. tests/unit/adapters/http.test.js
+    3. docs/es/pages/advanced/adapters.md
+    4. docs/es/pages/advanced/http2.md
+    5. docs/zh/pages/advanced/http2.md
+
+Hit@1:    1
+Hit@3:    1
+Hit@5:    1
+Recall@5: 1.000
+RR:       1.000
+Latency:  3627.56 ms
+
+--------------------------------------------------------------------------------------------------------------
+[4/10] OK axios-core-001 | core
+--------------------------------------------------------------------------------------------------------------
+Question: ┐QuÚ archivo contiene la clase principal Axios que ejecuta las peticiones?
+
+Expected:
+  - lib/core/Axios.js
+
+Retrieved:
+  * 1. lib/core/Axios.js
+    2. lib/axios.js
+    3. docs/es/pages/advanced/api-reference.md
+    4. docs/fr/pages/advanced/api-reference.md
+    5. docs/zh/pages/advanced/request-method-aliases.md
+
+Hit@1:    1
+Hit@3:    1
+Hit@5:    1
+Recall@5: 1.000
+RR:       1.000
+Latency:  3193.02 ms
+
+--------------------------------------------------------------------------------------------------------------
+[5/10] OK axios-error-001 | errors
+--------------------------------------------------------------------------------------------------------------
+Question: ┐D¾nde se define el tipo de error principal de Axios y su serializaci¾n?
+
+Expected:
+  - lib/core/AxiosError.js
+
+Retrieved:
+  * 1. lib/core/AxiosError.js
+    2. tests/unit/core/AxiosError.test.js
+    3. lib/axios.js
+    4. docs/es/pages/advanced/error-handling.md
+    5. lib/helpers/isAxiosError.js
+
+Hit@1:    1
+Hit@3:    1
+Hit@5:    1
+Recall@5: 1.000
+RR:       1.000
+Latency:  7345.36 ms
+
+--------------------------------------------------------------------------------------------------------------
+[6/10] MISS axios-headers-001 | headers
+--------------------------------------------------------------------------------------------------------------
+Question: ┐QuÚ archivo implementa la clase que normaliza y gestiona cabeceras HTTP?
+
+Expected:
+  - lib/core/AxiosHeaders.js
+
+Retrieved:
+    1. docs/es/pages/advanced/headers.md
+    2. docs/es/pages/advanced/header-methods.md
+    3. lib/adapters/http.js
+    4. docs/es/pages/advanced/api-reference.md
+    5. lib/helpers/normalizeURLForProtocolCheck.js
+
+Hit@1:    0
+Hit@3:    0
+Hit@5:    0
+Recall@5: 0.000
+RR:       0.000
+Latency:  2937.97 ms
+
+--------------------------------------------------------------------------------------------------------------
+[7/10] OK axios-cancel-001 | cancellation
+--------------------------------------------------------------------------------------------------------------
+Question: ┐D¾nde se implementan los tokens de cancelaci¾n de peticiones?
+
+Expected:
+  - lib/cancel/CancelToken.js
+
+Retrieved:
+  * 1. lib/cancel/CancelToken.js
+    2. lib/adapters/http.js
+    3. tests/browser/cancelToken.browser.test.js
+    4. docs/es/pages/advanced/cancellation.md
+    5. docs/es/pages/advanced/api-reference.md
+
+Hit@1:    1
+Hit@3:    1
+Hit@5:    1
+Recall@5: 1.000
+RR:       1.000
+Latency:  3459.47 ms
+
+--------------------------------------------------------------------------------------------------------------
+[8/10] MISS axios-merge-config-001 | configuration
+--------------------------------------------------------------------------------------------------------------
+Question: ┐QuÚ archivo combina la configuraci¾n por defecto con la configuraci¾n de una petici¾n?
+
+Expected:
+  - lib/core/mergeConfig.js
+
+Retrieved:
+    1. docs/es/pages/advanced/config-defaults.md
+    2. docs/es/pages/advanced/create-an-instance.md
+    3. docs/es/pages/advanced/request-config.md
+    4. docs/pages/advanced/request-config.md
+    5. docs/fr/pages/advanced/request-config.md
+
+Hit@1:    0
+Hit@3:    0
+Hit@5:    0
+Recall@5: 0.000
+RR:       0.000
+Latency:  3777.47 ms
+
+--------------------------------------------------------------------------------------------------------------
+[9/10] OK axios-build-url-001 | url
+--------------------------------------------------------------------------------------------------------------
+Question: ┐D¾nde se construye una URL a±adiendo parßmetros de consulta?
+
+Expected:
+  - lib/helpers/buildURL.js
+
+Retrieved:
+  * 1. lib/helpers/buildURL.js
+    2. lib/helpers/AxiosURLSearchParams.js
+    3. lib/platform/browser/classes/URLSearchParams.js
+    4. lib/platform/node/classes/URLSearchParams.js
+    5. docs/zh/pages/advanced/request-config.md
+
+Hit@1:    1
+Hit@3:    1
+Hit@5:    1
+Recall@5: 1.000
+RR:       1.000
+Latency:  3230.03 ms
+
+--------------------------------------------------------------------------------------------------------------
+[10/10] MISS axios-proxy-001 | proxy
+--------------------------------------------------------------------------------------------------------------
+Question: ┐QuÚ archivo decide si una petici¾n debe ignorar el proxy seg·n la configuraci¾n NO_PROXY?
+
+Expected:
+  - lib/helpers/shouldBypassProxy.js
+
+Retrieved:
+    1. lib/adapters/http.js
+    2. tests/unit/helpers/shouldBypassProxy.test.js
+    3. tests/unit/adapters/http.test.js
+    4. THREATMODEL.md
+    5. docs/pages/advanced/request-config.md
+
+Hit@1:    0
+Hit@3:    0
+Hit@5:    0
+Recall@5: 0.000
+RR:       0.000
+Latency:  3234.67 ms
+
+--------------------------------------------------------------------------------------------------------------
+REPOSITORY SUMMARY
+--------------------------------------------------------------------------------------------------------------
+Cases:               10
+Hit@1:               60.00%
+Hit@3:               60.00%
+Hit@5:               60.00%
+Recall@5:            60.00%
+MRR:                 0.600
+Unique docs@5:       5.00
+Documentation ratio: 50.00%
+Code ratio:          50.00%
+Avg latency:         4040.10 ms
+
+
+==============================================================================================================
+REPOSITORY: pinia
+==============================================================================================================
+Source:  vuejs/pinia
+Commit:  f4e0cb7a8193f564c27f6527b3f954e114a7534c
+Project: 1aa03333-1163-41b5-bd88-250e1911374c
+Dataset: C:\Users\tamue\Desktop\TFM_FOUNDERZ\devpilot-ai\backend\evals\datasets\independent\pinia.json
+
+--------------------------------------------------------------------------------------------------------------
+[1/10] OK pinia-create-001 | core
+--------------------------------------------------------------------------------------------------------------
+Question: ┐D¾nde se crea una instancia de Pinia y se implementa su eliminaci¾n?
+
+Expected:
+  - packages/pinia/src/createPinia.ts
+
+Retrieved:
+  * 1. packages/pinia/src/createPinia.ts
+    2. packages/pinia/__tests__/lifespan.spec.ts
+    3. packages/pinia/src/rootStore.ts
+    4. packages/docs/cookbook/migration-0-0-7.md
+    5. packages/docs/zh/cookbook/migration-0-0-7.md
+
+Hit@1:    1
+Hit@3:    1
+Hit@5:    1
+Recall@5: 1.000
+RR:       1.000
+Latency:  2796.57 ms
+
+--------------------------------------------------------------------------------------------------------------
+[2/10] OK pinia-root-001 | core
+--------------------------------------------------------------------------------------------------------------
+Question: ┐QuÚ archivo mantiene la instancia activa de Pinia y define el contrato raÝz Pinia?
+
+Expected:
+  - packages/pinia/src/rootStore.ts
+
+Retrieved:
+  * 1. packages/pinia/src/rootStore.ts
+    2. packages/pinia/src/createPinia.ts
+    3. packages/pinia/src/index.ts
+    4. packages/docs/zh/api/interfaces/pinia.PiniaPlugin.md
+    5. packages/docs/zh/api/interfaces/pinia.DefineStoreOptionsInPlugin.md
+
+Hit@1:    1
+Hit@3:    1
+Hit@5:    1
+Recall@5: 1.000
+RR:       1.000
+Latency:  2794.73 ms
+
+--------------------------------------------------------------------------------------------------------------
+[3/10] MISS pinia-define-store-001 | store
+--------------------------------------------------------------------------------------------------------------
+Question: ┐D¾nde se implementa defineStore y la creaci¾n interna de stores?
+
+Expected:
+  - packages/pinia/src/store.ts
+
+Retrieved:
+    1. packages/pinia/src/types.ts
+    2. packages/docs/core-concepts/index.md
+    3. packages/docs/zh/api/interfaces/pinia.DefineStoreOptions.md
+    4. packages/docs/zh/api/interfaces/pinia.DefineSetupStoreOptions.md
+    5. packages/pinia/test-dts/typeHelpers.test-d.ts
+
+Hit@1:    0
+Hit@3:    0
+Hit@5:    0
+Recall@5: 0.000
+RR:       0.000
+Latency:  2542.14 ms
+
+--------------------------------------------------------------------------------------------------------------
+[4/10] OK pinia-refs-001 | reactivity
+--------------------------------------------------------------------------------------------------------------
+Question: ┐QuÚ archivo convierte las propiedades de un store en refs con storeToRefs?
+
+Expected:
+  - packages/pinia/src/storeToRefs.ts
+
+Retrieved:
+  * 1. packages/pinia/src/storeToRefs.ts
+    2. packages/pinia/__tests__/storeToRefs.spec.ts
+    3. packages/pinia/test-dts/storeToRefs.test-d.ts
+    4. packages/pinia/test-dts/customizations.test-d.ts
+    5. packages/pinia/src/store.ts
+
+Hit@1:    1
+Hit@3:    1
+Hit@5:    1
+Recall@5: 1.000
+RR:       1.000
+Latency:  2678.54 ms
+
+--------------------------------------------------------------------------------------------------------------
+[5/10] OK pinia-map-helpers-001 | helpers
+--------------------------------------------------------------------------------------------------------------
+Question: ┐D¾nde se implementan mapState, mapActions y mapWritableState?
+
+Expected:
+  - packages/pinia/src/mapHelpers.ts
+
+Retrieved:
+  * 1. packages/pinia/src/mapHelpers.ts
+    2. packages/pinia/src/index.ts
+    3. packages/pinia/__tests__/mapHelpers.spec.ts
+    4. packages/pinia/test-dts/mapHelpers.test-d.ts
+    5. packages/docs/cookbook/options-api.md
+
+Hit@1:    1
+Hit@3:    1
+Hit@5:    1
+Recall@5: 1.000
+RR:       1.000
+Latency:  2414.27 ms
+
+--------------------------------------------------------------------------------------------------------------
+[6/10] OK pinia-hmr-001 | hmr
+--------------------------------------------------------------------------------------------------------------
+Question: ┐QuÚ archivo contiene la l¾gica de actualizaci¾n HMR de stores?
+
+Expected:
+  - packages/pinia/src/hmr.ts
+
+Retrieved:
+  * 1. packages/pinia/src/hmr.ts
+    2. packages/nuxt/src/auto-hmr-plugin.ts
+    3. packages/docs/zh/cookbook/hot-module-replacement.md
+    4. packages/pinia/src/types.ts
+    5. packages/pinia/src/mapHelpers.ts
+
+Hit@1:    1
+Hit@3:    1
+Hit@5:    1
+Recall@5: 1.000
+RR:       1.000
+Latency:  3099.90 ms
+
+--------------------------------------------------------------------------------------------------------------
+[7/10] MISS pinia-subscriptions-001 | subscriptions
+--------------------------------------------------------------------------------------------------------------
+Question: ┐D¾nde se a±aden y disparan las suscripciones internas de Pinia?
+
+Expected:
+  - packages/pinia/src/subscriptions.ts
+
+Retrieved:
+    1. packages/pinia/src/store.ts
+    2. packages/pinia/src/createPinia.ts
+    3. packages/pinia/src/rootStore.ts
+    4. packages/docs/zh/api/enums/pinia.MutationType.md
+    5. packages/docs/core-concepts/state.md
+
+Hit@1:    0
+Hit@3:    0
+Hit@5:    0
+Recall@5: 0.000
+RR:       0.000
+Latency:  2634.60 ms
+
+--------------------------------------------------------------------------------------------------------------
+[8/10] MISS pinia-devtools-plugin-001 | devtools
+--------------------------------------------------------------------------------------------------------------
+Question: ┐QuÚ archivo registra Pinia en Vue Devtools y gestiona su plugin de desarrollo?
+
+Expected:
+  - packages/pinia/src/devtools/plugin.ts
+
+Retrieved:
+    1. packages/pinia/src/devtools/index.ts
+    2. packages/pinia/src/createPinia.ts
+    3. packages/pinia/src/rootStore.ts
+    4. packages/playground/vite.config.ts
+    5. packages/online-playground/vite.config.ts
+
+Hit@1:    0
+Hit@3:    0
+Hit@5:    0
+Recall@5: 0.000
+RR:       0.000
+Latency:  6768.68 ms
+
+--------------------------------------------------------------------------------------------------------------
+[9/10] OK pinia-devtools-actions-001 | devtools
+--------------------------------------------------------------------------------------------------------------
+Question: ┐D¾nde se implementan las acciones de copiar, pegar, guardar y abrir el estado desde Devtools?
+
+Expected:
+  - packages/pinia/src/devtools/actions.ts
+
+Retrieved:
+  * 1. packages/pinia/src/devtools/actions.ts
+    2. packages/pinia/src/devtools/plugin.ts
+    3. packages/docs/zh/core-concepts/plugins.md
+    4. packages/docs/core-concepts/state.md
+    5. packages/docs/zh/core-concepts/state.md
+
+Hit@1:    1
+Hit@3:    1
+Hit@5:    1
+Recall@5: 1.000
+RR:       1.000
+Latency:  2853.63 ms
+
+--------------------------------------------------------------------------------------------------------------
+[10/10] OK pinia-devtools-formatting-001 | devtools
+--------------------------------------------------------------------------------------------------------------
+Question: ┐QuÚ archivo formatea stores, estado y eventos para mostrarlos en el inspector de Devtools?
+
+Expected:
+  - packages/pinia/src/devtools/formatting.ts
+
+Retrieved:
+  * 1. packages/pinia/src/devtools/formatting.ts
+    2. packages/pinia/src/devtools/plugin.ts
+    3. packages/docs/zh/core-concepts/plugins.md
+    4. packages/pinia/CHANGELOG.md
+    5. packages/docs/zh/api/interfaces/pinia._StoreWithState.md
+
+Hit@1:    1
+Hit@3:    1
+Hit@5:    1
+Recall@5: 1.000
+RR:       1.000
+Latency:  2769.56 ms
+
+--------------------------------------------------------------------------------------------------------------
+REPOSITORY SUMMARY
+--------------------------------------------------------------------------------------------------------------
+Cases:               10
+Hit@1:               70.00%
+Hit@3:               70.00%
+Hit@5:               70.00%
+Recall@5:            70.00%
+MRR:                 0.700
+Unique docs@5:       5.00
+Documentation ratio: 34.00%
+Code ratio:          66.00%
+Avg latency:         3135.26 ms
+
+
+==============================================================================================================
+DEVPILOT AI - RETRIEVAL V2 INDEPENDENT VALIDATION
+==============================================================================================================
+Cases:                         30
+
+Configuration
+--------------------------------------------------------------------------------------------------------------
+Vector candidates:             20
+Lexical candidates:            20
+Path candidates:               20
+Fusion:                        Best-Rank
+Candidates to reranker:        10
+Final documents:               5
+Rerank model:                  gpt-5.6-terra
+Max chars/document:            4000
+
+Retrieval quality
+--------------------------------------------------------------------------------------------------------------
+Hit@1:                         66.67%
+Hit@3:                         66.67%
+Hit@5:                         66.67%
+Recall@5:                      66.67%
+MRR:                           0.667
+
+Diagnostics
+--------------------------------------------------------------------------------------------------------------
+Unique docs@5:                 5.00
+Documentation ratio:           36.00%
+Code ratio:                    64.00%
+
+Performance
+--------------------------------------------------------------------------------------------------------------
+Avg pipeline latency:          3695.65 ms
+
+Independent validation failures
+--------------------------------------------------------------------------------------------------------------
+Failures: 10
+
+commitizen | commitizen-bump-001
+Expected:
+  - commitizen/bump.py
+Retrieved:
+  1. docs/commands/bump.md
+  2. commitizen/commands/version.py
+  3. commitizen/version_increment.py
+  4. commitizen/version_schemes.py
+  5. tests/test_version_scheme_semver.py
+
+commitizen | commitizen-config-001
+Expected:
+  - commitizen/config/factory.py
+Retrieved:
+  1. commitizen/commands/init.py
+  2. commitizen/config/__init__.py
+  3. commitizen/config/base_config.py
+  4. docs/config/configuration_file.md
+  5. docs/tutorials/github_actions.md
+
+commitizen | commitizen-plugins-001
+Expected:
+  - commitizen/cz/__init__.py
+Retrieved:
+  1. commitizen/providers/__init__.py
+  2. commitizen/commands/bump.py
+  3. docs/third-party-plugins/about.md
+  4. docs/README.md
+  5. mkdocs.yml
+
+axios | axios-adapter-001
+Expected:
+  - lib/adapters/adapters.js
+Retrieved:
+  1. docs/es/pages/advanced/adapters.md
+  2. lib/core/Axios.js
+  3. docs/es/pages/advanced/request-config.md
+  4. docs/fr/pages/advanced/adapters.md
+  5. lib/axios.js
+
+axios | axios-headers-001
+Expected:
+  - lib/core/AxiosHeaders.js
+Retrieved:
+  1. docs/es/pages/advanced/headers.md
+  2. docs/es/pages/advanced/header-methods.md
+  3. lib/adapters/http.js
+  4. docs/es/pages/advanced/api-reference.md
+  5. lib/helpers/normalizeURLForProtocolCheck.js
+
+axios | axios-merge-config-001
+Expected:
+  - lib/core/mergeConfig.js
+Retrieved:
+  1. docs/es/pages/advanced/config-defaults.md
+  2. docs/es/pages/advanced/create-an-instance.md
+  3. docs/es/pages/advanced/request-config.md
+  4. docs/pages/advanced/request-config.md
+  5. docs/fr/pages/advanced/request-config.md
+
+axios | axios-proxy-001
+Expected:
+  - lib/helpers/shouldBypassProxy.js
+Retrieved:
+  1. lib/adapters/http.js
+  2. tests/unit/helpers/shouldBypassProxy.test.js
+  3. tests/unit/adapters/http.test.js
+  4. THREATMODEL.md
+  5. docs/pages/advanced/request-config.md
+
+pinia | pinia-define-store-001
+Expected:
+  - packages/pinia/src/store.ts
+Retrieved:
+  1. packages/pinia/src/types.ts
+  2. packages/docs/core-concepts/index.md
+  3. packages/docs/zh/api/interfaces/pinia.DefineStoreOptions.md
+  4. packages/docs/zh/api/interfaces/pinia.DefineSetupStoreOptions.md
+  5. packages/pinia/test-dts/typeHelpers.test-d.ts
+
+pinia | pinia-subscriptions-001
+Expected:
+  - packages/pinia/src/subscriptions.ts
+Retrieved:
+  1. packages/pinia/src/store.ts
+  2. packages/pinia/src/createPinia.ts
+  3. packages/pinia/src/rootStore.ts
+  4. packages/docs/zh/api/enums/pinia.MutationType.md
+  5. packages/docs/core-concepts/state.md
+
+pinia | pinia-devtools-plugin-001
+Expected:
+  - packages/pinia/src/devtools/plugin.ts
+Retrieved:
+  1. packages/pinia/src/devtools/index.ts
+  2. packages/pinia/src/createPinia.ts
+  3. packages/pinia/src/rootStore.ts
+  4. packages/playground/vite.config.ts
+  5. packages/online-playground/vite.config.ts

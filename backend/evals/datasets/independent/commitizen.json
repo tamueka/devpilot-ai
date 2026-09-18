@@ -1,0 +1,88 @@
+{
+  "metadata": {
+    "name": "Commitizen Independent Retrieval Validation",
+    "version": "1.0"
+  },
+  "cases": [
+    {
+      "id": "commitizen-bump-001",
+      "category": "versioning",
+      "question": "¿Dónde se determina qué incremento de versión debe aplicarse?",
+      "expected_files": [
+        "commitizen/bump.py"
+      ]
+    },
+    {
+      "id": "commitizen-changelog-001",
+      "category": "changelog",
+      "question": "¿Qué archivo construye el árbol del changelog a partir de los commits?",
+      "expected_files": [
+        "commitizen/changelog.py"
+      ]
+    },
+    {
+      "id": "commitizen-config-001",
+      "category": "configuration",
+      "question": "¿Dónde se crea la configuración correcta según el tipo de archivo de configuración?",
+      "expected_files": [
+        "commitizen/config/factory.py"
+      ]
+    },
+    {
+      "id": "commitizen-plugins-001",
+      "category": "plugins",
+      "question": "¿Qué archivo descubre los plugins de Commitizen?",
+      "expected_files": [
+        "commitizen/cz/__init__.py"
+      ]
+    },
+    {
+      "id": "commitizen-conventional-001",
+      "category": "commits",
+      "question": "¿Dónde está implementado el soporte para Conventional Commits?",
+      "expected_files": [
+        "commitizen/cz/conventional_commits/conventional_commits.py"
+      ]
+    },
+    {
+      "id": "commitizen-git-001",
+      "category": "git",
+      "question": "¿Qué módulo obtiene commits y tags e interactúa con el repositorio Git?",
+      "expected_files": [
+        "commitizen/git.py"
+      ]
+    },
+    {
+      "id": "commitizen-command-001",
+      "category": "process",
+      "question": "¿Dónde se ejecutan comandos externos y shells del sistema?",
+      "expected_files": [
+        "commitizen/cmd.py"
+      ]
+    },
+    {
+      "id": "commitizen-provider-001",
+      "category": "version-provider",
+      "question": "¿Qué archivo selecciona el proveedor de versión configurado?",
+      "expected_files": [
+        "commitizen/providers/__init__.py"
+      ]
+    },
+    {
+      "id": "commitizen-npm-provider-001",
+      "category": "version-provider",
+      "question": "¿Dónde está implementado el proveedor de versiones para proyectos npm?",
+      "expected_files": [
+        "commitizen/providers/npm_provider.py"
+      ]
+    },
+    {
+      "id": "commitizen-version-scheme-001",
+      "category": "versioning",
+      "question": "¿Qué archivo contiene las implementaciones de los esquemas PEP 440, SemVer y SemVer2?",
+      "expected_files": [
+        "commitizen/version_schemes.py"
+      ]
+    }
+  ]
+}

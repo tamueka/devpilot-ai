@@ -1,0 +1,63 @@
+DevPilot AI - Retrieval v2 Development Results
+================================================
+
+Architecture
+------------
+Vector@20
++ Lexical@20
++ Path@20
+-> Best-Rank Fusion
+-> Top10 candidates
+-> LLM reranker
+-> Top5
+
+Candidate coverage
+------------------
+Vector Recall@20:              76.67%
+Lexical Recall@20:             60.00%
+Path Recall@20:                93.33%
+
+Vector + Lexical:              80.00%
+Vector + Lexical + Path:      100.00%
+
+Best-Rank candidate cutoff
+--------------------------
+Top10 Recall:                  96.67%
+Top15 Recall:                  96.67%
+Top20 Recall:                  96.67%
+Top30 Recall:                  96.67%
+Top40 Recall:                 100.00%
+
+Retrieval v2 + LLM reranker
+---------------------------
+Cases:                         30
+
+Hit@1:                         96.67%
+Hit@3:                         96.67%
+Hit@5:                         96.67%
+Recall@5:                      96.67%
+MRR:                           0.967
+
+Unique docs@5:                 5.00
+Documentation ratio:           15.33%
+Code proxy ratio:              84.67%
+
+Average pipeline latency:      4572.29 ms
+
+Remaining failure
+-----------------
+pallets-click | click-core-001
+
+The expected src/click/core.py document was retrieved by Path-Aware
+retrieval but ranked outside the Best-Rank Top10 candidate cutoff.
+
+Methodology note
+----------------
+These 30 cases were originally created as a held-out benchmark, but they
+were subsequently inspected and used while developing Retrieval v2.
+
+They must therefore be considered a development benchmark for Retrieval v2,
+not an independent generalization test.
+
+Retrieval v2 must be validated on new repositories and new questions before
+release claims are made.
