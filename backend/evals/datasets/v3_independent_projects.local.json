@@ -1,0 +1,13 @@
+{
+    "projects": {
+        "httpx": {
+            "project_id": ""
+        },
+        "vue-router": {
+            "project_id": ""
+        },
+        "fastapi": {
+            "project_id": ""
+        }
+    }
+}
