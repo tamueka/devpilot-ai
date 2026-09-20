@@ -1,0 +1,115 @@
+
+====================================================================================================
+DEVPILOT AI - RETRIEVAL V3 PATH@20 DEVELOPMENT EVALUATION
+====================================================================================================
+
+Path candidate depth: 20
+No OpenAI API calls are performed.
+
+====================================================================================================
+REPOSITORY: commitizen
+====================================================================================================
+HIT  commitizen-bump-001              best_rank=20
+HIT  commitizen-changelog-001         best_rank=2
+MISS commitizen-config-001            best_rank=MISS
+     expected: commitizen/config/factory.py
+MISS commitizen-plugins-001           best_rank=MISS
+     expected: commitizen/cz/__init__.py
+HIT  commitizen-conventional-001      best_rank=1
+HIT  commitizen-git-001               best_rank=2
+MISS commitizen-command-001           best_rank=MISS
+     expected: commitizen/cmd.py
+MISS commitizen-provider-001          best_rank=MISS
+     expected: commitizen/providers/__init__.py
+HIT  commitizen-npm-provider-001      best_rank=2
+MISS commitizen-version-scheme-001    best_rank=MISS
+     expected: commitizen/version_schemes.py
+
+----------------------------------------------------------------------------------------------------
+SUMMARY: commitizen
+----------------------------------------------------------------------------------------------------
+Cases:           10
+Path@20 hits:   5/10 (50.00%)
+Recall@20:      50.00%
+Avg hit rank:    5.40
+
+====================================================================================================
+REPOSITORY: axios
+====================================================================================================
+HIT  axios-adapter-001                best_rank=9
+HIT  axios-fetch-001                  best_rank=6
+HIT  axios-node-http-001              best_rank=4
+HIT  axios-core-001                   best_rank=3
+HIT  axios-error-001                  best_rank=1
+HIT  axios-headers-001                best_rank=1
+HIT  axios-cancel-001                 best_rank=1
+HIT  axios-merge-config-001           best_rank=5
+HIT  axios-build-url-001              best_rank=5
+MISS axios-proxy-001                  best_rank=MISS
+     expected: lib/helpers/shouldBypassProxy.js
+
+----------------------------------------------------------------------------------------------------
+SUMMARY: axios
+----------------------------------------------------------------------------------------------------
+Cases:           10
+Path@20 hits:   9/10 (90.00%)
+Recall@20:      90.00%
+Avg hit rank:    3.89
+
+====================================================================================================
+REPOSITORY: pinia
+====================================================================================================
+HIT  pinia-create-001                 best_rank=1
+MISS pinia-root-001                   best_rank=MISS
+     expected: packages/pinia/src/rootStore.ts
+HIT  pinia-define-store-001           best_rank=13
+HIT  pinia-refs-001                   best_rank=1
+HIT  pinia-map-helpers-001            best_rank=3
+HIT  pinia-hmr-001                    best_rank=2
+HIT  pinia-subscriptions-001          best_rank=6
+HIT  pinia-devtools-plugin-001        best_rank=7
+MISS pinia-devtools-actions-001       best_rank=MISS
+     expected: packages/pinia/src/devtools/actions.ts
+HIT  pinia-devtools-formatting-001    best_rank=2
+
+----------------------------------------------------------------------------------------------------
+SUMMARY: pinia
+----------------------------------------------------------------------------------------------------
+Cases:           10
+Path@20 hits:   8/10 (80.00%)
+Recall@20:      80.00%
+Avg hit rank:    4.38
+
+
+====================================================================================================
+DEVPILOT AI - RETRIEVAL V3 PATH@20 DEVELOPMENT EVALUATION
+====================================================================================================
+
+Dataset status: Retrieval v3 development data
+No embeddings or LLM reranking executed.
+
+Cases:               30
+Path@20 hits:       22/30
+Hit@20:             73.33%
+Recall@20:          73.33%
+Average hit rank:    4.41
+Misses:              8
+
+Missed cases
+----------------------------------------------------------------------------------------------------
+commitizen   commitizen-config-001
+  - commitizen/config/factory.py
+commitizen   commitizen-plugins-001
+  - commitizen/cz/__init__.py
+commitizen   commitizen-command-001
+  - commitizen/cmd.py
+commitizen   commitizen-provider-001
+  - commitizen/providers/__init__.py
+commitizen   commitizen-version-scheme-001
+  - commitizen/version_schemes.py
+axios        axios-proxy-001
+  - lib/helpers/shouldBypassProxy.js
+pinia        pinia-root-001
+  - packages/pinia/src/rootStore.ts
+pinia        pinia-devtools-actions-001
+  - packages/pinia/src/devtools/actions.ts

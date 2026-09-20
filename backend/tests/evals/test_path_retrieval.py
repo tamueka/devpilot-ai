@@ -107,6 +107,41 @@ def test_extract_path_query_terms_expands_utilities() -> None:
     assert "utility" in terms
     assert "utilities" in terms
 
+def test_extract_path_query_terms_expands_incremento() -> None:
+    terms = extract_path_query_terms(
+        "¿Dónde se determina qué incremento de versión debe aplicarse?"
+    )
+
+    assert "increment" in terms
+    assert "bump" in terms
+
+
+def test_extract_path_query_terms_expands_adaptador() -> None:
+    terms = extract_path_query_terms(
+        "¿Dónde se selecciona el adaptador HTTP?"
+    )
+
+    assert "adapter" in terms
+    assert "adapters" in terms
+
+
+def test_extract_path_query_terms_expands_cabeceras() -> None:
+    terms = extract_path_query_terms(
+        "¿Qué archivo implementa la clase que gestiona cabeceras HTTP?"
+    )
+
+    assert "header" in terms
+    assert "headers" in terms
+
+
+def test_extract_path_query_terms_expands_suscripciones() -> None:
+    terms = extract_path_query_terms(
+        "¿Dónde se añaden y disparan las suscripciones internas?"
+    )
+
+    assert "subscription" in terms
+    assert "subscriptions" in terms
+
 
 def test_score_document_path_prefers_matching_filename() -> None:
     query = (
@@ -187,6 +222,54 @@ def test_score_document_path_finds_retry_timing() -> None:
         query=(
             "¿Dónde está la lógica de "
             "temporización de los reintentos?"
+        ),
+    )
+
+    assert score > 0
+
+
+def test_score_document_path_finds_bump_module() -> None:
+    score = score_document_path(
+        path="commitizen/bump.py",
+        query=(
+            "¿Dónde se determina qué incremento "
+            "de versión debe aplicarse?"
+        ),
+    )
+
+    assert score > 0
+
+
+def test_score_document_path_finds_adapters_module() -> None:
+    score = score_document_path(
+        path="lib/adapters/adapters.js",
+        query=(
+            "¿Dónde se selecciona el adaptador "
+            "HTTP que se utilizará?"
+        ),
+    )
+
+    assert score > 0
+
+
+def test_score_document_path_finds_headers_module() -> None:
+    score = score_document_path(
+        path="lib/core/AxiosHeaders.js",
+        query=(
+            "¿Qué archivo implementa la clase "
+            "que gestiona cabeceras HTTP?"
+        ),
+    )
+
+    assert score > 0
+
+
+def test_score_document_path_finds_subscriptions_module() -> None:
+    score = score_document_path(
+        path="packages/pinia/src/subscriptions.ts",
+        query=(
+            "¿Dónde se añaden y disparan "
+            "las suscripciones internas?"
         ),
     )
 
