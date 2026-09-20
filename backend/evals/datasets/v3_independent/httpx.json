@@ -1,0 +1,92 @@
+{
+  "name": "DevPilot AI Retrieval v3 Independent Validation - HTTPX",
+  "version": "1.0",
+  "repository": {
+    "key": "httpx",
+    "source": "encode/httpx",
+    "tag": "0.28.1",
+    "commit": "26d48e0634e6ee9cdc0533996db289ce4b430177"
+  },
+  "cases": [
+    {
+      "id": "httpx-api-001",
+      "category": "api",
+      "question": "¿Dónde se implementan las funciones HTTP de alto nivel como get, post, put y request que permiten enviar una petición sin crear manualmente un cliente?",
+      "expected_files": [
+        "httpx/_api.py"
+      ]
+    },
+    {
+      "id": "httpx-client-001",
+      "category": "client",
+      "question": "¿Qué archivo implementa los clientes síncrono y asíncrono que gestionan el envío de peticiones, redirecciones y configuración de transporte?",
+      "expected_files": [
+        "httpx/_client.py"
+      ]
+    },
+    {
+      "id": "httpx-auth-001",
+      "category": "authentication",
+      "question": "¿Dónde se implementan los flujos de autenticación Basic, Digest, NetRC y la clase base de autenticación de HTTPX?",
+      "expected_files": [
+        "httpx/_auth.py"
+      ]
+    },
+    {
+      "id": "httpx-config-001",
+      "category": "configuration",
+      "question": "¿Qué módulo define la configuración de timeouts, límites de conexiones, proxies y creación del contexto SSL?",
+      "expected_files": [
+        "httpx/_config.py"
+      ]
+    },
+    {
+      "id": "httpx-content-001",
+      "category": "request-content",
+      "question": "¿Dónde se transforma el contenido de una petición en streams y se codifican cuerpos JSON, formularios y contenido multipart?",
+      "expected_files": [
+        "httpx/_content.py"
+      ]
+    },
+    {
+      "id": "httpx-decoders-001",
+      "category": "decoding",
+      "question": "¿Qué archivo implementa la decodificación del contenido HTTP comprimido con gzip, deflate, Brotli o Zstandard?",
+      "expected_files": [
+        "httpx/_decoders.py"
+      ]
+    },
+    {
+      "id": "httpx-exceptions-001",
+      "category": "errors",
+      "question": "¿Dónde está definida la jerarquía de excepciones de HTTPX para timeouts, errores de red, protocolo y estado HTTP?",
+      "expected_files": [
+        "httpx/_exceptions.py"
+      ]
+    },
+    {
+      "id": "httpx-models-001",
+      "category": "models",
+      "question": "¿Qué módulo implementa los principales modelos HTTP como Request, Response, Headers y Cookies?",
+      "expected_files": [
+        "httpx/_models.py"
+      ]
+    },
+    {
+      "id": "httpx-urls-001",
+      "category": "url",
+      "question": "¿Dónde se implementan el análisis, normalización y manipulación de URLs utilizadas por HTTPX?",
+      "expected_files": [
+        "httpx/_urls.py"
+      ]
+    },
+    {
+      "id": "httpx-transport-001",
+      "category": "transport",
+      "question": "¿Qué archivo implementa el transporte HTTP predeterminado y adapta los errores de la capa de transporte a errores propios de HTTPX?",
+      "expected_files": [
+        "httpx/_transports/default.py"
+      ]
+    }
+  ]
+}

@@ -1,25 +1,47 @@
 {
-    "name": "DevPilot AI Retrieval v3 Independent Validation",
-    "version": "1.0",
-    "status": "frozen-before-evaluation",
-    "retrieval_version": "v3",
-    "repositories": [],
-    "methodology": {
-        "purpose": "Independent generalization evaluation for Retrieval v3",
-        "development_datasets_excluded": [
-            "commitizen-tools/commitizen",
-            "axios/axios",
-            "vuejs/pinia",
-            "gothinkster/realworld",
-            "pallets/click",
-            "sindresorhus/ky"
-        ],
-        "rules": [
-            "Repositories must not have been used for Retrieval v3 tuning.",
-            "Questions and expected files must be frozen before running Retrieval v3.",
-            "No retrieval parameter may be changed after inspecting validation results.",
-            "The validation run is one-shot for the frozen Retrieval v3 configuration.",
-            "Any later tuning converts this dataset into development data."
-        ]
+  "name": "DevPilot AI Retrieval v3 Independent Validation",
+  "version": "1.0",
+  "status": "frozen-before-evaluation",
+  "retrieval_version": "v3",
+  "repositories": [
+    {
+      "key": "httpx",
+      "source": "encode/httpx",
+      "tag": "0.28.1",
+      "commit": "26d48e0634e6ee9cdc0533996db289ce4b430177",
+      "dataset": "evals/datasets/v3_independent/httpx.json"
+    },
+    {
+      "key": "vue-router",
+      "source": "vuejs/router",
+      "tag": "v5.2.0",
+      "commit": "6e5f8d253b9444a76eb58f176ebe08d686c937cb",
+      "dataset": "evals/datasets/v3_independent/vue-router.json"
+    },
+    {
+      "key": "fastapi",
+      "source": "fastapi/fastapi",
+      "tag": "0.141.1",
+      "commit": "95f8322ee1dcda7ceace7b1c4f6c9915b36d748f",
+      "dataset": "evals/datasets/v3_independent/fastapi.json"
     }
+  ],
+  "methodology": {
+    "purpose": "Independent generalization evaluation for Retrieval v3",
+    "development_datasets_excluded": [
+      "axios/axios",
+      "commitizen-tools/commitizen",
+      "gothinkster/realworld",
+      "pallets/click",
+      "sindresorhus/ky",
+      "vuejs/pinia"
+    ],
+    "rules": [
+      "Repositories must not have been used for Retrieval v3 tuning.",
+      "Questions and expected files must be frozen before running Retrieval v3.",
+      "No retrieval parameter may be changed after inspecting validation results.",
+      "The validation run is one-shot for the frozen Retrieval v3 configuration.",
+      "Any later tuning converts this dataset into development data."
+    ]
+  }
 }
