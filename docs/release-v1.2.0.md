@@ -40,3 +40,20 @@ Pregunta
                 |
                 v
               Top 5
+
+
+## Estado de evaluación
+
+La implementación de Retrieval v3 y su benchmark independiente quedaron
+congelados antes de la publicación de esta versión.
+
+La ejecución final de las evaluaciones que requieren Vector Retrieval y LLM
+Reranking no se realizó durante el cierre de la versión debido a que la cuenta
+API externa utilizada por el entorno de evaluación no disponía de crédito.
+
+El proveedor respondió con:
+
+```text
+HTTP 429
+type: insufficient_quota
+code: credit_balance_exhausted

@@ -67,3 +67,15 @@
 - [ ] Crear tag `v1.2.0`.
 - [ ] Push del tag.
 - [ ] Crear GitHub Release `v1.2.0`.
+
+## Evaluación dependiente de API
+
+- [ ] Ejecutar evaluación final de desarrollo.
+  - Bloqueada por `credit_balance_exhausted`.
+- [ ] Indexar HTTPX, Vue Router y FastAPI.
+  - Bloqueado por generación de embeddings.
+- [ ] Ejecutar validación independiente ONE-SHOT.
+  - Benchmark ya congelado y preparado.
+
+Estas tareas no bloquean el cierre del código de v1.2.0, pero sí son necesarias
+antes de realizar afirmaciones sobre generalización independiente de Retrieval v3.
