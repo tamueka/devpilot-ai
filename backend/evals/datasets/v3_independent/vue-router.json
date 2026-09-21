@@ -1,0 +1,92 @@
+{
+  "name": "DevPilot AI Retrieval v3 Independent Validation - Vue Router",
+  "version": "1.0",
+  "repository": {
+    "key": "vue-router",
+    "source": "vuejs/router",
+    "tag": "v5.2.0",
+    "commit": "6e5f8d253b9444a76eb58f176ebe08d686c937cb"
+  },
+  "cases": [
+    {
+      "id": "vue-router-core-001",
+      "category": "router",
+      "question": "¿Dónde se crea la instancia principal del router y se coordina el proceso completo de navegación entre rutas?",
+      "expected_files": [
+        "packages/router/src/router.ts"
+      ]
+    },
+    {
+      "id": "vue-router-link-001",
+      "category": "component",
+      "question": "¿Qué archivo implementa el componente de enlace del router, incluyendo el cálculo de rutas activas y la navegación cuando se hace clic?",
+      "expected_files": [
+        "packages/router/src/RouterLink.ts"
+      ]
+    },
+    {
+      "id": "vue-router-view-001",
+      "category": "component",
+      "question": "¿Dónde se implementa el componente que renderiza el componente asociado a la ruta actual según la profundidad de rutas anidadas?",
+      "expected_files": [
+        "packages/router/src/RouterView.ts"
+      ]
+    },
+    {
+      "id": "vue-router-guards-001",
+      "category": "navigation",
+      "question": "¿Qué módulo extrae, transforma y ejecuta los guards de navegación definidos en componentes?",
+      "expected_files": [
+        "packages/router/src/navigationGuards.ts"
+      ]
+    },
+    {
+      "id": "vue-router-html5-history-001",
+      "category": "history",
+      "question": "¿Dónde se implementa el historial web basado en la API History del navegador para navegación con URLs normales?",
+      "expected_files": [
+        "packages/router/src/history/html5.ts"
+      ]
+    },
+    {
+      "id": "vue-router-memory-history-001",
+      "category": "history",
+      "question": "¿Qué archivo implementa un historial de navegación completamente en memoria que no depende del navegador?",
+      "expected_files": [
+        "packages/router/src/history/memory.ts"
+      ]
+    },
+    {
+      "id": "vue-router-matcher-001",
+      "category": "matcher",
+      "question": "¿Dónde se implementa el matcher que añade, elimina y resuelve registros de rutas a partir de una ubicación?",
+      "expected_files": [
+        "packages/router/src/matcher/index.ts"
+      ]
+    },
+    {
+      "id": "vue-router-query-001",
+      "category": "query",
+      "question": "¿Qué archivo convierte query strings en objetos de parámetros y vuelve a serializarlos a una URL?",
+      "expected_files": [
+        "packages/router/src/query.ts"
+      ]
+    },
+    {
+      "id": "vue-router-encoding-001",
+      "category": "url",
+      "question": "¿Dónde se implementan las reglas de codificación y decodificación utilizadas para parámetros, query strings y hashes de las rutas?",
+      "expected_files": [
+        "packages/router/src/encoding.ts"
+      ]
+    },
+    {
+      "id": "vue-router-scroll-001",
+      "category": "scroll",
+      "question": "¿Qué módulo guarda, calcula y restaura la posición de scroll durante una navegación del router?",
+      "expected_files": [
+        "packages/router/src/scrollBehavior.ts"
+      ]
+    }
+  ]
+}

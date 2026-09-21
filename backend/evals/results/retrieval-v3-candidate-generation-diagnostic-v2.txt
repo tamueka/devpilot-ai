@@ -1,0 +1,108 @@
+
+==============================================================================================================
+DEVPILOT AI - RETRIEVAL V3 DEEP CANDIDATE DIAGNOSTIC
+==============================================================================================================
+
+Diagnostic only.
+No LLM reranking is executed.
+Vector deep retrieval skipped: embedding API quota unavailable.
+Deep document depth: 100
+
+Preparing retrievers for commitizen...
+  Processing commitizen-bump-001...
+
+Preparing retrievers for axios...
+  Processing axios-adapter-001...
+  Processing axios-headers-001...
+
+Preparing retrievers for pinia...
+  Processing pinia-subscriptions-001...
+
+==============================================================================================================
+commitizen | commitizen-bump-001
+==============================================================================================================
+Question: ┬┐D├│nde se determina qu├® incremento de versi├│n debe aplicarse?
+Expected: commitizen/bump.py
+
+Vector deep diagnostic: SKIPPED
+Reason: embedding API quota unavailable.
+
+Lexical@20:  MISS
+Lexical@100: 26  (returned 100)
+
+Path@20:     20
+Path@100:    20  (returned 75)
+
+Deep coverage: LEXICAL+PATH
+
+==============================================================================================================
+axios | axios-adapter-001
+==============================================================================================================
+Question: ┬┐D├│nde se selecciona el adaptador HTTP que utilizar├í Axios?
+Expected: lib/adapters/adapters.js
+
+Vector deep diagnostic: SKIPPED
+Reason: embedding API quota unavailable.
+
+Lexical@20:  MISS
+Lexical@100: MISS  (returned 100)
+
+Path@20:     9
+Path@100:    9  (returned 43)
+
+Deep coverage: PATH
+
+==============================================================================================================
+axios | axios-headers-001
+==============================================================================================================
+Question: ┬┐Qu├® archivo implementa la clase que normaliza y gestiona cabeceras HTTP?
+Expected: lib/core/AxiosHeaders.js
+
+Vector deep diagnostic: SKIPPED
+Reason: embedding API quota unavailable.
+
+Lexical@20:  MISS
+Lexical@100: MISS  (returned 100)
+
+Path@20:     1
+Path@100:    1  (returned 96)
+
+Deep coverage: PATH
+
+==============================================================================================================
+pinia | pinia-subscriptions-001
+==============================================================================================================
+Question: ┬┐D├│nde se a├▒aden y disparan las suscripciones internas de Pinia?
+Expected: packages/pinia/src/subscriptions.ts
+
+Vector deep diagnostic: SKIPPED
+Reason: embedding API quota unavailable.
+
+Lexical@20:  MISS
+Lexical@100: MISS  (returned 100)
+
+Path@20:     6
+Path@100:    6  (returned 84)
+
+Deep coverage: PATH
+
+
+==============================================================================================================
+DEVPILOT AI - RETRIEVAL V3 DEEP CANDIDATE DIAGNOSTIC
+==============================================================================================================
+
+Cases: 4
+
+Deep candidate coverage
+--------------------------------------------------------------------------------------------------------------
+Vector@100:   SKIPPED
+Lexical@100:  1/4
+Path@100:     4/4
+Union L+P:    4/4
+
+Per-case classification
+--------------------------------------------------------------------------------------------------------------
+commitizen-bump-001            LEXICAL+PATH
+axios-adapter-001              PATH
+axios-headers-001              PATH
+pinia-subscriptions-001        PATH

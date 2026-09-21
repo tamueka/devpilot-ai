@@ -1,0 +1,229 @@
+
+==============================================================================================================
+DEVPILOT AI - RETRIEVAL V3 FAILURE DIAGNOSTIC
+==============================================================================================================
+
+Analyzing the 10 failed cases from Retrieval v2 independent validation.
+Retrieval v2 remains unchanged.
+
+Building candidate collector for commitizen...
+  Processing commitizen-bump-001...
+  Processing commitizen-config-001...
+  Processing commitizen-plugins-001...
+
+Building candidate collector for axios...
+  Processing axios-adapter-001...
+  Processing axios-headers-001...
+  Processing axios-merge-config-001...
+  Processing axios-proxy-001...
+
+Building candidate collector for pinia...
+  Processing pinia-define-store-001...
+  Processing pinia-subscriptions-001...
+  Processing pinia-devtools-plugin-001...
+
+==============================================================================================================
+commitizen | commitizen-bump-001 | versioning
+==============================================================================================================
+Classification: CANDIDATE_GENERATION
+
+Candidate counts:
+  Vector:  19
+  Lexical: 20
+  Path:    20
+  Union:   44
+
+Expected: commitizen/bump.py
+  Vector@20:       MISS
+  Lexical@20:      MISS
+  Path@20:         MISS
+  Best-Rank global: MISS
+  Best-Rank Top10: NO
+
+==============================================================================================================
+commitizen | commitizen-config-001 | configuration
+==============================================================================================================
+Classification: FUSION_CUTOFF
+
+Candidate counts:
+  Vector:  20
+  Lexical: 20
+  Path:    20
+  Union:   51
+
+Expected: commitizen/config/factory.py
+  Vector@20:       4
+  Lexical@20:      MISS
+  Path@20:         MISS
+  Best-Rank global: 11
+  Best-Rank Top10: NO
+
+==============================================================================================================
+commitizen | commitizen-plugins-001 | plugins
+==============================================================================================================
+Classification: FUSION_CUTOFF
+
+Candidate counts:
+  Vector:  20
+  Lexical: 20
+  Path:    20
+  Union:   48
+
+Expected: commitizen/cz/__init__.py
+  Vector@20:       5
+  Lexical@20:      MISS
+  Path@20:         MISS
+  Best-Rank global: 11
+  Best-Rank Top10: NO
+
+==============================================================================================================
+axios | axios-adapter-001 | adapter
+==============================================================================================================
+Classification: FUSION_CUTOFF
+
+Candidate counts:
+  Vector:  20
+  Lexical: 20
+  Path:    20
+  Union:   53
+
+Expected: lib/adapters/adapters.js
+  Vector@20:       13
+  Lexical@20:      MISS
+  Path@20:         MISS
+  Best-Rank global: 33
+  Best-Rank Top10: NO
+
+==============================================================================================================
+axios | axios-headers-001 | headers
+==============================================================================================================
+Classification: CANDIDATE_GENERATION
+
+Candidate counts:
+  Vector:  20
+  Lexical: 20
+  Path:    20
+  Union:   46
+
+Expected: lib/core/AxiosHeaders.js
+  Vector@20:       MISS
+  Lexical@20:      MISS
+  Path@20:         MISS
+  Best-Rank global: MISS
+  Best-Rank Top10: NO
+
+==============================================================================================================
+axios | axios-merge-config-001 | configuration
+==============================================================================================================
+Classification: FUSION_CUTOFF
+
+Candidate counts:
+  Vector:  20
+  Lexical: 20
+  Path:    20
+  Union:   51
+
+Expected: lib/core/mergeConfig.js
+  Vector@20:       12
+  Lexical@20:      MISS
+  Path@20:         5
+  Best-Rank global: 12
+  Best-Rank Top10: NO
+
+==============================================================================================================
+axios | axios-proxy-001 | proxy
+==============================================================================================================
+Classification: FUSION_CUTOFF
+
+Candidate counts:
+  Vector:  13
+  Lexical: 20
+  Path:    20
+  Union:   42
+
+Expected: lib/helpers/shouldBypassProxy.js
+  Vector@20:       8
+  Lexical@20:      MISS
+  Path@20:         MISS
+  Best-Rank global: 15
+  Best-Rank Top10: NO
+
+==============================================================================================================
+pinia | pinia-define-store-001 | store
+==============================================================================================================
+Classification: FUSION_CUTOFF
+
+Candidate counts:
+  Vector:  20
+  Lexical: 20
+  Path:    20
+  Union:   45
+
+Expected: packages/pinia/src/store.ts
+  Vector@20:       6
+  Lexical@20:      MISS
+  Path@20:         13
+  Best-Rank global: 13
+  Best-Rank Top10: NO
+
+==============================================================================================================
+pinia | pinia-subscriptions-001 | subscriptions
+==============================================================================================================
+Classification: CANDIDATE_GENERATION
+
+Candidate counts:
+  Vector:  20
+  Lexical: 20
+  Path:    20
+  Union:   50
+
+Expected: packages/pinia/src/subscriptions.ts
+  Vector@20:       MISS
+  Lexical@20:      MISS
+  Path@20:         MISS
+  Best-Rank global: MISS
+  Best-Rank Top10: NO
+
+==============================================================================================================
+pinia | pinia-devtools-plugin-001 | devtools
+==============================================================================================================
+Classification: FUSION_CUTOFF
+
+Candidate counts:
+  Vector:  20
+  Lexical: 20
+  Path:    20
+  Union:   46
+
+Expected: packages/pinia/src/devtools/plugin.ts
+  Vector@20:       8
+  Lexical@20:      17
+  Path@20:         7
+  Best-Rank global: 19
+  Best-Rank Top10: NO
+
+
+==============================================================================================================
+DEVPILOT AI - RETRIEVAL V3 FAILURE DIAGNOSTIC
+==============================================================================================================
+Failed Retrieval v2 cases: 10
+
+Candidate coverage
+--------------------------------------------------------------------------------------------------------------
+Vector@20:        7/10
+Lexical@20:       1/10
+Path@20:          3/10
+Union V+L+P:      7/10
+Best-Rank Top10:  0/10
+
+Failure classification
+--------------------------------------------------------------------------------------------------------------
+Candidate generation: 3
+Fusion / cutoff:      7
+Reranker:             0
+
+Interpretation
+--------------------------------------------------------------------------------------------------------------
+CANDIDATE_GENERATION = expected file is absent from Vector@20, Lexical@20 and Path@20.
+FUSION_CUTOFF = expected file exists in the multi-source union but falls below Best-Rank Top10.
+RERANKER = expected file reaches Best-Rank Top10 but was absent from the final Retrieval v2 Top5.
