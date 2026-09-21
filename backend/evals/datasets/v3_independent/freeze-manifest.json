@@ -1,0 +1,12 @@
+{
+  "benchmark": "DevPilot AI Retrieval v3 Independent Validation",
+  "status": "frozen-before-evaluation",
+  "algorithm": "sha256",
+  "files": {
+    "suite.json": "cb65d25c0934ba9f6208e4a3e590d055082e7ce5f8e215afc0dbb789d8f33c48",
+    "httpx.json": "3d2e2f5294cd1c7a365461c6c3d6e9f282e37591ce0fad745631e9d044a062e5",
+    "vue-router.json": "20ce50f99fbaac48bcfb0b83bb128fc43d37a5011bd68d68e399200d8067f6ef",
+    "fastapi.json": "0a3d142ab007d7ce62b3b9c1c4de9ab2cbe9001b171475dc3b9c31f600dd3d76",
+    "README.md": "6b7d00a8cc0cd25f4c3e8b535a26ff1bed5ccc71b56cc7b30dcfe176dcffcf41"
+  }
+}

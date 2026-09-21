@@ -1,0 +1,37 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 203, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "C:\Users\tamue\Desktop\TFM_FOUNDERZ\devpilot-ai\backend\evals\run_retrieval_v3_independent_validation.py", line 750, in <module>
+    main()
+    ~~~~^^
+  File "C:\Users\tamue\Desktop\TFM_FOUNDERZ\devpilot-ai\backend\evals\run_retrieval_v3_independent_validation.py", line 489, in main
+    project_id = get_project_id(
+        mappings,
+        key,
+    )
+  File "C:\Users\tamue\Desktop\TFM_FOUNDERZ\devpilot-ai\backend\evals\run_retrieval_v3_independent_validation.py", line 168, in get_project_id
+    raise RuntimeError(
+    ...<2 lines>...
+    )
+RuntimeError: Falta project_id para httpx
+
+====================================================================================================
+DEVPILOT AI - RETRIEVAL V3 INDEPENDENT VALIDATION
+====================================================================================================
+
+FROZEN ONE-SHOT VALIDATION
+
+No modificar Retrieval v3 ni este benchmark despu├®s de inspeccionar los resultados.
+
+Configuration
+----------------------------------------------------------------------------------------------------
+Vector candidates:      20
+Lexical candidates:     20
+Path candidates:        20
+Fusion:                 Best-Rank
+Candidates to reranker: 20
+Final documents:         5
+
+====================================================================================================
+PREFLIGHT
+====================================================================================================

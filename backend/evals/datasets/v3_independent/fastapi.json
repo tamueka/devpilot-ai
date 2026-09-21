@@ -1,0 +1,92 @@
+{
+  "name": "DevPilot AI Retrieval v3 Independent Validation - FastAPI",
+  "version": "1.0",
+  "repository": {
+    "key": "fastapi",
+    "source": "fastapi/fastapi",
+    "tag": "0.141.1",
+    "commit": "95f8322ee1dcda7ceace7b1c4f6c9915b36d748f"
+  },
+  "cases": [
+    {
+      "id": "fastapi-application-001",
+      "category": "application",
+      "question": "¿Dónde está implementada la clase principal FastAPI que configura la aplicación, OpenAPI, documentación y registro de rutas?",
+      "expected_files": [
+        "fastapi/applications.py"
+      ]
+    },
+    {
+      "id": "fastapi-routing-001",
+      "category": "routing",
+      "question": "¿Qué archivo implementa APIRoute y la construcción del handler que procesa una petición y serializa la respuesta?",
+      "expected_files": [
+        "fastapi/routing.py"
+      ]
+    },
+    {
+      "id": "fastapi-dependencies-001",
+      "category": "dependencies",
+      "question": "¿Dónde se analiza y resuelve el árbol de dependencias de un endpoint, incluyendo parámetros y caché de dependencias?",
+      "expected_files": [
+        "fastapi/dependencies/utils.py"
+      ]
+    },
+    {
+      "id": "fastapi-oauth2-001",
+      "category": "security",
+      "question": "¿Qué módulo implementa OAuth2PasswordBearer, formularios del password flow y la extracción del token Bearer?",
+      "expected_files": [
+        "fastapi/security/oauth2.py"
+      ]
+    },
+    {
+      "id": "fastapi-openapi-001",
+      "category": "openapi",
+      "question": "¿Dónde se construyen las operaciones, parámetros, esquemas de seguridad y componentes del documento OpenAPI?",
+      "expected_files": [
+        "fastapi/openapi/utils.py"
+      ]
+    },
+    {
+      "id": "fastapi-exception-handlers-001",
+      "category": "errors",
+      "question": "¿Qué archivo contiene los handlers que convierten HTTPException y errores de validación en respuestas HTTP?",
+      "expected_files": [
+        "fastapi/exception_handlers.py"
+      ]
+    },
+    {
+      "id": "fastapi-encoders-001",
+      "category": "serialization",
+      "question": "¿Dónde se implementa la conversión de modelos, dataclasses, fechas, enums y otros objetos Python a estructuras compatibles con JSON?",
+      "expected_files": [
+        "fastapi/encoders.py"
+      ]
+    },
+    {
+      "id": "fastapi-params-001",
+      "category": "parameters",
+      "question": "¿Qué módulo define las clases que representan parámetros Path, Query, Header, Cookie, Body, Form y File?",
+      "expected_files": [
+        "fastapi/params.py"
+      ]
+    },
+    {
+      "id": "fastapi-background-001",
+      "category": "background-tasks",
+      "question": "¿Dónde se implementa la clase utilizada para registrar funciones que se ejecutarán después de enviar la respuesta al cliente?",
+      "expected_files": [
+        "fastapi/background.py"
+      ]
+    },
+    {
+      "id": "fastapi-exceptions-001",
+      "category": "errors",
+      "question": "¿Qué archivo define las excepciones propias de FastAPI, incluyendo errores HTTP y errores de validación de peticiones?",
+      "expected_files": [
+        "fastapi/exceptions.py"
+      ]
+    }
+  ]
+}

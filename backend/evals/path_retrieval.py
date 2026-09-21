@@ -44,6 +44,14 @@ PATH_QUERY_EXPANSIONS: dict[
     str,
     tuple[str, ...],
 ] = {
+    "adaptador": (
+        "adapter",
+        "adapters",
+    ),
+    "adaptadores": (
+        "adapter",
+        "adapters",
+    ),
     "argumento": (
         "argument",
         "arguments",
@@ -55,6 +63,14 @@ PATH_QUERY_EXPANSIONS: dict[
     "autocompletado": (
         "completion",
         "autocomplete",
+    ),
+    "cabecera": (
+        "header",
+        "headers",
+    ),
+    "cabeceras": (
+        "header",
+        "headers",
     ),
     "completado": (
         "completion",
@@ -113,6 +129,14 @@ PATH_QUERY_EXPANSIONS: dict[
     "ganchos": (
         "hook",
         "hooks",
+    ),
+    "incremento": (
+        "increment",
+        "bump",
+    ),
+    "incrementos": (
+        "increment",
+        "bump",
     ),
     "interfaz": (
         "ui",
@@ -175,6 +199,14 @@ PATH_QUERY_EXPANSIONS: dict[
     ),
     "red": (
         "network",
+    ),
+    "suscripcion": (
+        "subscription",
+        "subscriptions",
+    ),
+    "suscripciones": (
+        "subscription",
+        "subscriptions",
     ),
     "terminal": (
         "terminal",
