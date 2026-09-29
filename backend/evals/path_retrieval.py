@@ -200,6 +200,16 @@ PATH_QUERY_EXPANSIONS: dict[
     "red": (
         "network",
     ),
+    "ruta": (
+        "route",
+        "routes",
+        "routing",
+    ),
+    "rutas": (
+        "route",
+        "routes",
+        "routing",
+    ),
     "suscripcion": (
         "subscription",
         "subscriptions",

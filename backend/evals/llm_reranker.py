@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import json
 import os
 from collections.abc import Sequence
 from dataclasses import dataclass
@@ -10,6 +9,12 @@ from openai import OpenAI
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
+from app.ai import (
+    AIProviderError,
+    GenerationProvider,
+    OpenAIProvider,
+    get_generation_provider,
+)
 from app.db.models import Chunk, Document
 from evals.retrieval_metrics import normalize_path
 
@@ -20,6 +25,23 @@ DEFAULT_RERANK_MODEL = os.getenv(
 )
 
 DEFAULT_MAX_CHARS_PER_DOCUMENT = 4_000
+
+
+RERANK_RESPONSE_SCHEMA = {
+    "type": "object",
+    "properties": {
+        "ranked_paths": {
+            "type": "array",
+            "items": {
+                "type": "string",
+            },
+        },
+    },
+    "required": [
+        "ranked_paths",
+    ],
+    "additionalProperties": False,
+}
 
 
 @dataclass(frozen=True)
@@ -34,12 +56,15 @@ def load_candidate_documents(
     project_id: UUID,
     candidate_paths: Sequence[str],
     *,
-    max_chars_per_document: int = DEFAULT_MAX_CHARS_PER_DOCUMENT,
+    max_chars_per_document: int = (
+        DEFAULT_MAX_CHARS_PER_DOCUMENT
+    ),
 ) -> list[RerankerDocument]:
     """
     Carga contenido real de los documentos candidatos.
 
-    Se mantiene el orden original producido por RRF.
+    Se mantiene el orden original producido por la fase
+    de candidate retrieval.
 
     El contenido se reconstruye concatenando chunks según
     chunk_index y se limita para controlar el tamaño del prompt.
@@ -83,7 +108,10 @@ def load_candidate_documents(
         list[tuple[int, str]],
     ] = {}
 
-    canonical_paths: dict[str, str] = {}
+    canonical_paths: dict[
+        str,
+        str,
+    ] = {}
 
     for path, chunk_index, content in rows:
         normalized = normalize_path(
@@ -105,7 +133,9 @@ def load_candidate_documents(
             )
         )
 
-    documents: list[RerankerDocument] = []
+    documents: list[
+        RerankerDocument
+    ] = []
 
     for original_rank, candidate_path in enumerate(
         candidate_paths,
@@ -154,8 +184,8 @@ def build_reranker_prompt(
     """
     Construye el prompt de reranking.
 
-    El contenido de los documentos se considera datos no confiables,
-    nunca instrucciones para el modelo.
+    El contenido de los documentos se considera datos
+    no confiables, nunca instrucciones para el modelo.
     """
     sections: list[str] = []
 
@@ -219,7 +249,7 @@ def normalize_model_ranking(
     - descarta paths inventados;
     - elimina duplicados;
     - mantiene únicamente candidatos válidos;
-    - añade al final candidatos que el modelo haya omitido.
+    - añade al final candidatos omitidos por el modelo.
     """
     candidate_lookup = {
         normalize_path(path): path
@@ -230,6 +260,12 @@ def normalize_model_ranking(
     seen: set[str] = set()
 
     for path in ranked_paths:
+        if not isinstance(
+            path,
+            str,
+        ):
+            continue
+
         normalized = normalize_path(
             path
         )
@@ -269,16 +305,45 @@ def normalize_model_ranking(
     return result
 
 
+def _create_generation_provider(
+    *,
+    client: OpenAI | None = None,
+    provider: GenerationProvider | None = None,
+) -> GenerationProvider:
+    """
+    Devuelve el proveedor de generación.
+
+    provider:
+        Permite inyectar un proveedor durante tests.
+
+    client:
+        Compatibilidad temporal con los tests/código existentes
+        que inyectaban directamente un cliente OpenAI.
+
+    Sin inyección se utiliza AI_PROVIDER.
+    """
+    if provider is not None:
+        return provider
+
+    if client is not None:
+        return OpenAIProvider(
+            client=client,
+        )
+
+    return get_generation_provider()
+
+
 def rerank_documents(
     *,
     question: str,
     documents: Sequence[RerankerDocument],
     top_k: int,
     client: OpenAI | None = None,
+    provider: GenerationProvider | None = None,
     model: str = DEFAULT_RERANK_MODEL,
 ) -> list[str]:
     """
-    Reordena candidatos utilizando un modelo OpenAI.
+    Reordena candidatos utilizando el proveedor IA configurado.
 
     Devuelve paths ordenados de mayor a menor relevancia.
     """
@@ -295,12 +360,6 @@ def rerank_documents(
             "model must not be blank"
         )
 
-    openai_client = (
-        client
-        if client is not None
-        else OpenAI()
-    )
-
     candidate_paths = [
         document.path
         for document in documents
@@ -311,56 +370,32 @@ def rerank_documents(
         documents=documents,
     )
 
-    response = openai_client.responses.create(
-        model=model,
-        input=[
-            {
-                "role": "user",
-                "content": [
-                    {
-                        "type": "input_text",
-                        "text": prompt,
-                    }
-                ],
-            }
-        ],
-        text={
-            "format": {
-                "type": "json_schema",
-                "name": "repository_reranking",
-                "strict": True,
-                "schema": {
-                    "type": "object",
-                    "properties": {
-                        "ranked_paths": {
-                            "type": "array",
-                            "items": {
-                                "type": "string",
-                            },
-                        }
-                    },
-                    "required": [
-                        "ranked_paths"
-                    ],
-                    "additionalProperties": False,
-                },
-            }
-        },
+    generation_provider = (
+        _create_generation_provider(
+            client=client,
+            provider=provider,
+        )
     )
 
-    if not response.output_text:
-        raise RuntimeError(
-            "Reranker returned an empty response"
+    try:
+        payload = (
+            generation_provider.generate_json(
+                prompt=prompt,
+                schema=RERANK_RESPONSE_SCHEMA,
+                schema_name=(
+                    "repository_reranking"
+                ),
+                model=model,
+            )
         )
 
-    try:
-        payload = json.loads(
-            response.output_text
-        )
-    except json.JSONDecodeError as exc:
-        raise RuntimeError(
-            "Reranker returned invalid JSON"
-        ) from exc
+    except AIProviderError as exc:
+        if "JSON" in str(exc).upper():
+            raise RuntimeError(
+                "Reranker returned invalid JSON"
+            ) from exc
+
+        raise
 
     ranked_paths = payload.get(
         "ranked_paths"
@@ -371,12 +406,15 @@ def rerank_documents(
         list,
     ):
         raise RuntimeError(
-            "Reranker response does not contain ranked_paths"
+            "Reranker response does not "
+            "contain ranked_paths"
         )
 
-    normalized_ranking = normalize_model_ranking(
-        ranked_paths=ranked_paths,
-        candidate_paths=candidate_paths,
+    normalized_ranking = (
+        normalize_model_ranking(
+            ranked_paths=ranked_paths,
+            candidate_paths=candidate_paths,
+        )
     )
 
     return normalized_ranking[
@@ -392,15 +430,20 @@ def rerank_candidate_paths(
     candidate_paths: Sequence[str],
     top_k: int = 5,
     client: OpenAI | None = None,
+    provider: GenerationProvider | None = None,
     model: str = DEFAULT_RERANK_MODEL,
-    max_chars_per_document: int = DEFAULT_MAX_CHARS_PER_DOCUMENT,
+    max_chars_per_document: int = (
+        DEFAULT_MAX_CHARS_PER_DOCUMENT
+    ),
 ) -> list[str]:
     """
-    Función de alto nivel:
+    Pipeline de alto nivel:
 
         candidate paths
             ↓
         cargar contenido
+            ↓
+        GenerationProvider
             ↓
         LLM reranker
             ↓
@@ -410,7 +453,9 @@ def rerank_candidate_paths(
         db=db,
         project_id=project_id,
         candidate_paths=candidate_paths,
-        max_chars_per_document=max_chars_per_document,
+        max_chars_per_document=(
+            max_chars_per_document
+        ),
     )
 
     return rerank_documents(
@@ -418,5 +463,6 @@ def rerank_candidate_paths(
         documents=documents,
         top_k=top_k,
         client=client,
+        provider=provider,
         model=model,
     )
