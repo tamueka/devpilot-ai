@@ -5,7 +5,9 @@ from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from app.db.models import Chunk, Document
-from app.services.project_embedding_service import create_text_embedding
+from app.services.project_embedding_service import (
+    create_text_embedding,
+)
 
 
 DEFAULT_TOP_K = 5
@@ -37,9 +39,13 @@ def search_project_chunks(
         query,
     )
 
-    distance = Chunk.embedding.cosine_distance(
-        query_embedding,
-    ).label("distance")
+    distance = (
+        Chunk.embedding
+        .cosine_distance(
+            query_embedding,
+        )
+        .label("distance")
+    )
 
     statement = (
         select(
@@ -55,8 +61,12 @@ def search_project_chunks(
             Document.project_id == project_id,
             Chunk.embedding.is_not(None),
         )
-        .order_by(distance)
-        .limit(top_k)
+        .order_by(
+            distance
+        )
+        .limit(
+            top_k
+        )
     )
 
     rows = db.execute(
@@ -71,7 +81,13 @@ def search_project_chunks(
             language=document.language,
             chunk_index=chunk.chunk_index,
             content=chunk.content,
-            distance=float(chunk_distance),
+            distance=float(
+                chunk_distance
+            ),
         )
-        for chunk, document, chunk_distance in rows
+        for (
+            chunk,
+            document,
+            chunk_distance,
+        ) in rows
     ]
